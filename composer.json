@@ -1,0 +1,24 @@
+{
+    "name": "ockcyp/covers-validator",
+    "description": "Validates @covers, @uses tags in PHPUnit tests",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Omer Karadagli",
+            "email": "ufokaradagli@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"OckCyp\\CoversValidator\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"OckCyp\\CoversValidator\\Tests\\": "tests/"}
+    },
+    "require": {
+        "phpunit/phpunit": "~4.6.0",
+        "symfony/console": "~2.3.0"
+    },
+    "bin": [
+        "covers-validator"
+    ]
+}

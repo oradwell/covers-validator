@@ -1,0 +1,9 @@
+#!/usr/bin/env php
+<?php
+
+use OckCyp\CoversValidator\ValidatorCommand;
+use Symfony\Component\Console\Application;
+
+$app = new Application;
+$app->add(new ValidatorCommand);
+$app->run();
