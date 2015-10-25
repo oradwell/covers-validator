@@ -4,13 +4,14 @@ namespace OckCyp\CoversValidator\Application;
 
 use OckCyp\CoversValidator\Command\ValidateCommand;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
 
 class CoversValidator extends Application
 {
     /**
      * {@inheritdoc}
      */
-    protected function getCommandName()
+    protected function getCommandName(InputInterface $input)
     {
         return 'validate';
     }

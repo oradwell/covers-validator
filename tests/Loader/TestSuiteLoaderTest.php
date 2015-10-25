@@ -18,7 +18,7 @@ class TestSuiteLoaderTest extends BaseTestCase
 
         $configuration = $this->getMockBuilder('PHPUnit_Util_Configuration')
             ->disableOriginalConstructor()
-            ->setMethods(['getTestSuiteConfiguration', 'handlePHPConfiguration'])
+            ->setMethods(array('getTestSuiteConfiguration', 'handlePHPConfiguration'))
             ->getMock();
 
         $configuration->expects($this->once())
