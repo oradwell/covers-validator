@@ -1,6 +1,8 @@
 ockcyp/covers-validator
 =======================
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ockcyp/covers-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ockcyp/covers-validator/?branch=master)
+
 PHPUnit @covers tags validator
 
 [PHPUnit](https://github.com/sebastianbergmann/phpunit) fails to generate coverage report
