@@ -54,3 +54,16 @@ Usage
 ```
 ./covers-validator
 ```
+
+You can give optional `-c` argument to load a particular PHPUnit configuration file:
+
+```
+./covers-validator -c tests/Fixtures/configuration.xml
+```
+
+### Sample output
+
+```
+Valid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringExistingClassTest::testDummyTest
+Invalid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringNonExistentClassTest::testDummyTest
+```
