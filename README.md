@@ -32,13 +32,28 @@ Also see: [phpunit/issues/1791](https://github.com/sebastianbergmann/phpunit/iss
 Installation
 ------------
 
-Until I put it on packagist you will need to clone the repository
-and run `composer install`.
+```
+composer require --dev ockcyp/covers-validator dev-master
+```
+
+Usage
+-----
 
 ```
-git clone https://github.com/ockcyp/covers-validator.git
-cd covers-validator
-composer install
+vendor/bin/covers-validator
+```
+
+You can give optional `-c` argument to load a particular PHPUnit configuration file:
+
+```
+vendor/bin/covers-validator -c tests/Fixtures/configuration.xml
+```
+
+### Sample output
+
+```
+Valid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringExistingClassTest::testDummyTest
+Invalid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringNonExistentClassTest::testDummyTest
 ```
 
 Tests
@@ -48,24 +63,4 @@ To run the tests, execute:
 
 ```
 vendor/bin/phpunit
-```
-
-Usage
------
-
-```
-./covers-validator
-```
-
-You can give optional `-c` argument to load a particular PHPUnit configuration file:
-
-```
-./covers-validator -c tests/Fixtures/configuration.xml
-```
-
-### Sample output
-
-```
-Valid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringExistingClassTest::testDummyTest
-Invalid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringNonExistentClassTest::testDummyTest
 ```
