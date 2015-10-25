@@ -21,4 +21,4 @@ script:
   - if [[ "$COVERAGE" -eq 0 ]]; then phpunit; else mkdir -p build/logs; phpunit --coverage-clover=build/logs/clover.xml; fi
 
 after_script:
-  - if [[ "$COVERAGE" -gt 0 ]]; then vendor/bin/coveralls -v; fi
+  - if [[ "$COVERAGE" -gt 0 ]]; then vendor/bin/coveralls; fi
