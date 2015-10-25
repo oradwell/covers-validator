@@ -32,6 +32,8 @@ class ValidateCommand extends Command
         $configuration = ConfigLoader::loadConfig($configFile);
         $suiteList = TestSuiteLoader::loadSuite($configuration);
 
+        $exitCode = 0;
+
 	    /** @var \PHPUnit_Framework_TestSuite $suite */
 	    foreach ($suiteList as $suite) {
             $testClass = $suite->getName();
@@ -42,10 +44,16 @@ class ValidateCommand extends Command
                     $testClass,
                     $testMethod
                 );
+                // Change exit code to 1 if invalid
+                $exitCode ^= !$isValid;
 
                 $validityText = $isValid ? 'Valid' : 'Invalid';
                 $output->writeln($validityText . ' - ' . $testClass . '::' . $testMethod);
             }
         }
+
+        // Return exit code 1 if any of the tags are invalid
+        // otherwise return exit code 0
+        return $exitCode;
     }
 }

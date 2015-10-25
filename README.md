@@ -56,6 +56,9 @@ Valid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringExistingClassTest::tes
 Invalid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringNonExistentClassTest::testDummyTest
 ```
 
+*Tip:* Command gives exit code 1 when any of the covers tags are invalid.
+Use this to fail your builds.
+
 Tests
 -----
 
