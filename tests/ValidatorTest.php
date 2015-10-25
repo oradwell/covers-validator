@@ -3,17 +3,19 @@
 namespace OckCyp\CoversValidator\Tests;
 
 use OckCyp\CoversValidator\Validator;
+use OckCyp\CoversValidator\TestSuiteLoader;
+use OckCyp\CoversValidator\ConfigLoader;
+use OckCyp\CoversValidator\ConfigDeterminer;
 
 class ValidatorTest extends BaseTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Validator::isValid
+     * @covers OckCyp\CoversValidator\Validator::isValidMethod
      */
     public function testReturnsFalseForNonExistentClassBeingCovered()
     {
-        $validator = new Validator;
         $this->assertFalse(
-            $validator->isValid(
+            Validator::isValidMethod(
                 $this->getFixtureClassName('TestCoveringNonExistentClassTest'),
                 'testDummyTest'
             )
@@ -21,13 +23,12 @@ class ValidatorTest extends BaseTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Validator::isValid
+     * @covers OckCyp\CoversValidator\Validator::isValidMethod
      */
     public function testReturnsTrueForExistingClassBeingCovered()
     {
-        $validator = new Validator;
         $this->assertTrue(
-            $validator->isValid(
+            Validator::isValidMethod(
                 $this->getFixtureClassName('TestCoveringExistingClassTest'),
                 'testDummyTest'
             )

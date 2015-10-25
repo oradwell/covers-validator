@@ -3,7 +3,7 @@
 namespace OckCyp\CoversValidator;
 
 use PHPUnit_Framework_CodeCoverageException as CodeCoverageException;
-use PHPUnit_Util_Test;
+use PHPUnit_Util_Test as Test;
 
 class Validator
 {
@@ -15,10 +15,10 @@ class Validator
      *
      * @return bool
      */
-    public function isValid($class, $method)
+    public static function isValidMethod($class, $method)
     {
         try {
-            PHPUnit_Util_Test::getLinesToBeCovered($class, $method);
+            Test::getLinesToBeCovered($class, $method);
         } catch (CodeCoverageException $e) {
             return false;
         }

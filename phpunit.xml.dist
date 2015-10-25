@@ -3,6 +3,15 @@
   <testsuites>
     <testsuite name="Covers Validator Test Suite">
       <directory suffix="Test.php">tests/</directory>
+      <exclude>tests/Fixtures/</exclude>
     </testsuite>
   </testsuites>
+  <filter>
+    <blacklist>
+      <directory suffix=".php">tests/</directory>
+    </blacklist>
+    <whitelist processUncoveredFilesFromWhitelist="true">
+        <directory suffix=".php">src/</directory>
+    </whitelist>
+  </filter>
 </phpunit>

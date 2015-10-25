@@ -49,6 +49,6 @@ vendor/bin/phpunit
 Usage
 -----
 
-Oh, I forgot to tell you, I haven't finished implementing it yet.
-
-See [src/Validator.php](src/Validator.php)
+```
+./covers-validator
+```
