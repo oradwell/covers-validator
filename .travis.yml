@@ -7,7 +7,18 @@ php:
   - 7.0
   - hhvm
 
+env: COVERAGE=0
+
+matrix:
+  include:
+    - php: 5.6
+      env: COVERAGE=1
+
 before_script:
   - composer install
 
-#script: phpunit --coverage-text
+script:
+  - if [[ "$COVERAGE" -eq 0 ]]; then phpunit; else mkdir -p build/logs; phpunit --coverage-clover=build/logs/clover.xml fi
+
+after_script:
+  - if [[ "$COVERAGE" -gt 0 ]]; then vendor/bin/coveralls -v; fi
