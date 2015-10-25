@@ -1,13 +1,14 @@
 <?php
 
-namespace OckCyp\CoversValidator\Tests;
+namespace OckCyp\CoversValidator\Tests\Loader;
 
-use OckCyp\CoversValidator\TestSuiteLoader;
+use OckCyp\CoversValidator\Loader\TestSuiteLoader;
+use OckCyp\CoversValidator\Tests\BaseTestCase;
 
 class TestSuiteLoaderTest extends BaseTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\TestSuiteLoader::loadSuite
+     * @covers OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
      */
     public function testLoadsSuite()
     {

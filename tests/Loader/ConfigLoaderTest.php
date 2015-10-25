@@ -1,13 +1,14 @@
 <?php
 
-namespace OckCyp\CoversValidator\Tests;
+namespace OckCyp\CoversValidator\Tests\Loader;
 
-use OckCyp\CoversValidator\ConfigLoader;
+use OckCyp\CoversValidator\Loader\ConfigLoader;
+use OckCyp\CoversValidator\Tests\ConfigTestCase;
 
 class ConfigLoaderTest extends ConfigTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\ConfigLoader::loadConfig
+     * @covers OckCyp\CoversValidator\Loader\ConfigLoader::loadConfig
      */
     public function testLoadsConfig()
     {

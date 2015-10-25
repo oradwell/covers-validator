@@ -2,8 +2,6 @@
 
 namespace OckCyp\CoversValidator\Tests;
 
-use OckCyp\CoversValidator\ConfigDeterminer;
-
 abstract class ConfigTestCase extends BaseTestCase
 {
     /**

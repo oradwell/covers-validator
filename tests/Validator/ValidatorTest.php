@@ -1,16 +1,14 @@
 <?php
 
-namespace OckCyp\CoversValidator\Tests;
+namespace OckCyp\CoversValidator\Tests\Validator;
 
-use OckCyp\CoversValidator\Validator;
-use OckCyp\CoversValidator\TestSuiteLoader;
-use OckCyp\CoversValidator\ConfigLoader;
-use OckCyp\CoversValidator\ConfigDeterminer;
+use OckCyp\CoversValidator\Tests\BaseTestCase;
+use OckCyp\CoversValidator\Validator\Validator;
 
 class ValidatorTest extends BaseTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Validator::isValidMethod
+     * @covers OckCyp\CoversValidator\Validator\Validator::isValidMethod
      */
     public function testReturnsFalseForNonExistentClassBeingCovered()
     {
@@ -23,7 +21,7 @@ class ValidatorTest extends BaseTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Validator::isValidMethod
+     * @covers OckCyp\CoversValidator\Validator\Validator::isValidMethod
      */
     public function testReturnsTrueForExistingClassBeingCovered()
     {

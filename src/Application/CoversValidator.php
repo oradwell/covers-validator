@@ -1,11 +1,11 @@
 <?php
 
-namespace OckCyp\CoversValidator;
+namespace OckCyp\CoversValidator\Application;
 
 use OckCyp\CoversValidator\Command\ValidateCommand;
 use Symfony\Component\Console\Application;
 
-class CoversValidatorApplication extends Application
+class CoversValidator extends Application
 {
     /**
      * {@inheritdoc}

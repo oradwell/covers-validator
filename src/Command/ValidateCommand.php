@@ -2,10 +2,10 @@
 
 namespace OckCyp\CoversValidator\Command;
 
-use OckCyp\CoversValidator\ConfigDeterminer;
-use OckCyp\CoversValidator\ConfigLoader;
-use OckCyp\CoversValidator\TestSuiteLoader;
-use OckCyp\CoversValidator\Validator;
+use OckCyp\CoversValidator\Loader\ConfigLoader;
+use OckCyp\CoversValidator\Loader\TestSuiteLoader;
+use OckCyp\CoversValidator\Locator\ConfigLocator;
+use OckCyp\CoversValidator\Validator\Validator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -28,7 +28,7 @@ class ValidateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $configOption = $input->getOption('configuration');
-        $configFile = ConfigDeterminer::determine($configOption);
+        $configFile = ConfigLocator::locate($configOption);
         $configuration = ConfigLoader::loadConfig($configFile);
         $suiteList = TestSuiteLoader::loadSuite($configuration);
 

@@ -1,13 +1,14 @@
 <?php
 
-namespace OckCyp\CoversValidator\Tests;
+namespace OckCyp\CoversValidator\Tests\Locator;
 
-use OckCyp\CoversValidator\ConfigDeterminer;
+use OckCyp\CoversValidator\Locator\ConfigLocator;
+use OckCyp\CoversValidator\Tests\ConfigTestCase;
 
-class ConfigDeterminerTest extends ConfigTestCase
+class ConfigLocatorTest extends ConfigTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigPath()
     {
@@ -15,12 +16,12 @@ class ConfigDeterminerTest extends ConfigTestCase
 
         $this->assertEquals(
             realpath('phpunit.xml'),
-            ConfigDeterminer::determine(null)
+            ConfigLocator::locate(null)
         );
     }
 
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigPathEvenWhenDistExists()
     {
@@ -29,12 +30,12 @@ class ConfigDeterminerTest extends ConfigTestCase
 
         $this->assertEquals(
             realpath('phpunit.xml'),
-            ConfigDeterminer::determine(null)
+            ConfigLocator::locate(null)
         );
     }
 
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultDistConfigPath()
     {
@@ -42,12 +43,12 @@ class ConfigDeterminerTest extends ConfigTestCase
 
         $this->assertEquals(
             realpath('phpunit.xml.dist'),
-            ConfigDeterminer::determine(null)
+            ConfigLocator::locate(null)
         );
     }
 
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultDistConfigPathInGivenDirectory()
     {
@@ -57,12 +58,12 @@ class ConfigDeterminerTest extends ConfigTestCase
 
         $this->assertEquals(
             realpath($configPath),
-            ConfigDeterminer::determine('some-other-dir')
+            ConfigLocator::locate('some-other-dir')
         );
     }
 
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigpathInGivenDirectory()
     {
@@ -72,12 +73,12 @@ class ConfigDeterminerTest extends ConfigTestCase
 
         $this->assertEquals(
             realpath($configPath),
-            ConfigDeterminer::determine('some-other-dir')
+            ConfigLocator::locate('some-other-dir')
         );
     }
 
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigpathInGivenDirectoryEvenWhenDistExists()
     {
@@ -88,12 +89,12 @@ class ConfigDeterminerTest extends ConfigTestCase
 
         $this->assertEquals(
             realpath($configPath),
-            ConfigDeterminer::determine('some-other-dir')
+            ConfigLocator::locate('some-other-dir')
         );
     }
 
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsGivenConfigFile()
     {
@@ -103,15 +104,15 @@ class ConfigDeterminerTest extends ConfigTestCase
 
         $this->assertEquals(
             realpath($configPath),
-            ConfigDeterminer::determine($configPath)
+            ConfigLocator::locate($configPath)
         );
     }
 
     /**
-     * @covers OckCyp\CoversValidator\ConfigDeterminer::determine
+     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testReturnsNullWhenConfigFileDoesNotExist()
     {
-        $this->assertNull(ConfigDeterminer::determine(null));
+        $this->assertNull(ConfigLocator::locate(null));
     }
 }

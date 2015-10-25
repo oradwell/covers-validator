@@ -1,6 +1,6 @@
 <?php
 
-namespace OckCyp\CoversValidator;
+namespace OckCyp\CoversValidator\Loader;
 
 use PHPUnit_Util_Configuration as Configuration;
 

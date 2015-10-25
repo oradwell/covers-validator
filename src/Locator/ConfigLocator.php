@@ -1,18 +1,18 @@
 <?php
 
-namespace OckCyp\CoversValidator;
+namespace OckCyp\CoversValidator\Locator;
 
-class ConfigDeterminer
+class ConfigLocator
 {
     const CONFIG_FILENAME = 'phpunit.xml';
 
     /**
-     * Determines config file to use in the way PHPUnit does it
+     * Locates config file to use in the way PHPUnit does it
      *
      * @param string $configOption
      * @return string|null
      */
-    public static function determine($configOption)
+    public static function locate($configOption)
     {
         $configurationFile = static::CONFIG_FILENAME;
         if (is_dir($configOption)) {
