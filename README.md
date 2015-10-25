@@ -1,6 +1,7 @@
 ockcyp/covers-validator
 =======================
 
+[![Build Status](https://travis-ci.org/ockcyp/covers-validator.svg?branch=master)](https://travis-ci.org/ockcyp/covers-validator)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ockcyp/covers-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ockcyp/covers-validator/?branch=master)
 
 PHPUnit @covers tags validator
