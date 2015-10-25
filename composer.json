@@ -1,6 +1,6 @@
 {
     "name": "ockcyp/covers-validator",
-    "description": "Validates @covers, @uses tags in PHPUnit tests",
+    "description": "Validates @covers tags in PHPUnit tests",
     "license": "MIT",
     "authors": [
         {
