@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit>
+  <testsuites>
+    <testsuite name="My Test Suite">
+      <file>./TwoTestCoveringExistingClassTest.php</file>
+      <file>./TwoTestCoveringNonExistentClassTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>

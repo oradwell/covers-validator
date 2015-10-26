@@ -4,6 +4,8 @@ namespace OckCyp\CoversValidator\Tests\Application;
 
 use OckCyp\CoversValidator\Application\CoversValidator;
 use OckCyp\CoversValidator\Tests\BaseTestCase;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\NullOutput;
 
 class CoversValidatorTest extends BaseTestCase
 {

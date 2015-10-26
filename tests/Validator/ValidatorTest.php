@@ -14,7 +14,7 @@ class ValidatorTest extends BaseTestCase
     {
         $this->assertFalse(
             Validator::isValidMethod(
-                $this->getFixtureClassName('TestCoveringNonExistentClassTest'),
+                $this->getFixtureClassName('OneTestCoveringNonExistentClassTest'),
                 'testDummyTest'
             )
         );
@@ -27,7 +27,7 @@ class ValidatorTest extends BaseTestCase
     {
         $this->assertTrue(
             Validator::isValidMethod(
-                $this->getFixtureClassName('TestCoveringExistingClassTest'),
+                $this->getFixtureClassName('OneTestCoveringExistingClassTest'),
                 'testDummyTest'
             )
         );

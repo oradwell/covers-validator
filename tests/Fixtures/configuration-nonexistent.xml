@@ -2,7 +2,7 @@
 <phpunit>
   <testsuites>
     <testsuite name="My Test Suite">
-      <directory suffix="Test.php">.</directory>
+      <file>./OneTestCoveringNonExistentClassTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

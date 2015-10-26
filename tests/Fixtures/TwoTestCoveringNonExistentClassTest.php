@@ -2,7 +2,7 @@
 
 namespace OckCyp\CoversValidator\Tests\Fixtures;
 
-class TestCoveringNonExistentClassTest extends \PHPUnit_Framework_TestCase
+class TwoTestCoveringNonExistentClassTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers NonExistentClass

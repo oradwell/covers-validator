@@ -15,8 +15,6 @@ class TestSuiteLoader
      */
     public static function loadSuite(Configuration $configuration)
     {
-        $configuration->handlePHPConfiguration();
-
         return $configuration->getTestSuiteConfiguration();
     }
 }
