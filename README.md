@@ -27,14 +27,14 @@ Trying to @cover or @use not existing class or interface "NonExistentClass".
 Trying to @cover or @use not existing method "ExistingClass::nonExistantMethod".
 ```
 
-See: [phpunit/issues/1758](https://github.com/sebastianbergmann/phpunit/issues/1758)
+See: [phpunit/issues/1758](https://github.com/sebastianbergmann/phpunit/issues/1758)<br />
 Also see: [phpunit/issues/1791](https://github.com/sebastianbergmann/phpunit/issues/1791)
 
 Installation
 ------------
 
 ```
-composer require --dev ockcyp/covers-validator dev-master
+composer require --dev ockcyp/covers-validator
 ```
 
 Usage
