@@ -18,9 +18,6 @@
         "phpunit/phpunit": "~4.6.0",
         "symfony/console": "~2.3.0"
     },
-    "require-dev": {
-        "satooshi/php-coveralls": "^0.6.1"
-    },
     "bin": [
         "covers-validator"
     ]

@@ -15,7 +15,7 @@ matrix:
       env: COVERAGE=1
 
 before_script:
-  - composer install
+  - if [[ "$COVERAGE" -eq 0 ]]; then composer install; else composer require satooshi/php-coveralls --dev; fi
 
 script:
   - if [[ "$COVERAGE" -eq 0 ]]; then phpunit; else mkdir -p build/logs; phpunit --coverage-clover=build/logs/clover.xml; fi
