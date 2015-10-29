@@ -5,11 +5,11 @@ namespace OckCyp\CoversValidator\Tests\Application;
 use OckCyp\CoversValidator\Application\CoversValidator;
 use OckCyp\CoversValidator\Tests\BaseTestCase;
 
+/**
+ * @coversNothing
+ */
 class CoversValidatorTest extends BaseTestCase
 {
-    /**
-     * @covers OckCyp\CoversValidator\Application\CoversValidator
-     */
     public function testApplicationIsRight()
     {
         $app = new CoversValidator;

@@ -14,6 +14,9 @@ use Symfony\Component\Console\Tester\CommandTester;
  *
  * For some reason had to split the test files into different suites
  * PHPUnit skips the files when command is run second time
+ *
+ * @covers OckCyp\CoversValidator\Application\CoversValidator
+ * @covers OckCyp\CoversValidator\Command\ValidateCommand
  */
 class ValidateCommandTest extends BaseTestCase
 {
@@ -77,6 +80,19 @@ class ValidateCommandTest extends BaseTestCase
     {
         $input = new ArrayInput(array(
             '-c' => 'tests/Fixtures/configuration-empty.xml'
+        ));
+
+        $app = new CoversValidator;
+        $exitCode = $app->doRun($input, new NullOutput);
+
+        $this->assertEquals(0, $exitCode);
+    }
+
+    public function testBootstrapOptionWorks()
+    {
+        $input = new ArrayInput(array(
+            '-c' => 'tests/Fixtures/configuration-empty.xml',
+            '--bootstrap' => 'tests/Fixtures/bootstrap-3.php',
         ));
 
         $app = new CoversValidator;

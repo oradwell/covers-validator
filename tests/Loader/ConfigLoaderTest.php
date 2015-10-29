@@ -3,9 +3,9 @@
 namespace OckCyp\CoversValidator\Tests\Loader;
 
 use OckCyp\CoversValidator\Loader\ConfigLoader;
-use OckCyp\CoversValidator\Tests\ConfigTestCase;
+use OckCyp\CoversValidator\Tests\FileTestCase;
 
-class ConfigLoaderTest extends ConfigTestCase
+class ConfigLoaderTest extends FileTestCase
 {
     /**
      * @covers OckCyp\CoversValidator\Loader\ConfigLoader::loadConfig
