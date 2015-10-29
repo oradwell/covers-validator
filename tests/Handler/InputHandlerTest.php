@@ -22,9 +22,9 @@ class InputHandlerTest extends BaseTestCase
         $input->getOption('configuration')
             ->shouldBeCalled()
             ->willReturn('tests/Fixtures/configuration-empty.xml');
-        $input->hasOption('bootstrap')
+        $input->getOption('bootstrap')
             ->shouldBeCalled()
-            ->willReturn(false);
+            ->willReturn(null);
 
         $config = InputHandler::handleInput($input->reveal());
 
@@ -42,9 +42,9 @@ class InputHandlerTest extends BaseTestCase
         $input->getOption('configuration')
             ->shouldBeCalled()
             ->willReturn('tests/Fixtures/configuration-bootstrap.xml');
-        $input->hasOption('bootstrap')
+        $input->getOption('bootstrap')
             ->shouldBeCalled()
-            ->willReturn(false);
+            ->willReturn(null);
 
         $this->assertFalse(
             class_exists(
@@ -74,9 +74,6 @@ class InputHandlerTest extends BaseTestCase
         $input->getOption('configuration')
             ->shouldBeCalled()
             ->willReturn('tests/Fixtures/configuration-bootstrap.xml');
-        $input->hasOption('bootstrap')
-            ->shouldBeCalled()
-            ->willReturn(true);
         $input->getOption('bootstrap')
             ->shouldBeCalled()
             ->willReturn('tests/Fixtures/bootstrap-2.php');
