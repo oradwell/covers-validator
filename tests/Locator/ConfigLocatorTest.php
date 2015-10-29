@@ -3,9 +3,9 @@
 namespace OckCyp\CoversValidator\Tests\Locator;
 
 use OckCyp\CoversValidator\Locator\ConfigLocator;
-use OckCyp\CoversValidator\Tests\ConfigTestCase;
+use OckCyp\CoversValidator\Tests\FileTestCase;
 
-class ConfigLocatorTest extends ConfigTestCase
+class ConfigLocatorTest extends FileTestCase
 {
     /**
      * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate

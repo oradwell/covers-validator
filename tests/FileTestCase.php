@@ -2,7 +2,7 @@
 
 namespace OckCyp\CoversValidator\Tests;
 
-abstract class ConfigTestCase extends BaseTestCase
+abstract class FileTestCase extends BaseTestCase
 {
     /**
      * @var string
