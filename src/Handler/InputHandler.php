@@ -23,7 +23,7 @@ class InputHandler
         $configuration = ConfigLoader::loadConfig($configFile);
 
         $phpunit = $configuration->getPHPUnitConfiguration();
-        if ($input->hasOption('bootstrap')) {
+        if (null !== $input->getOption('bootstrap')) {
             $phpunit['bootstrap'] = $input->getOption('bootstrap');
         }
 
