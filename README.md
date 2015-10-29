@@ -50,6 +50,12 @@ You can give optional `-c` argument to load a particular PHPUnit configuration f
 vendor/bin/covers-validator -c tests/Fixtures/configuration.xml
 ```
 
+You can override `bootstrap` specified in PHPUnit configuration:
+
+```
+vendor/bin/covers-validator --bootstrap tests/bootstrap.php
+```
+
 ### Sample output
 
 ```
