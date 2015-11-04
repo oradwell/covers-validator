@@ -46,22 +46,25 @@ class ValidateCommand extends Command
         }
 
         $allValid = true;
-	    /** @var \PHPUnit_Framework_TestSuite $suite */
-	    foreach ($suiteList as $suite) {
-            $testClass = $suite->getName();
-		    /** @var \PHPUnit_Framework_TestSuite $test */
-            foreach ($suite as $test) {
-                $testMethod = $test->getName();
-                $isValid = Validator::isValidMethod(
-                    $testClass,
-                    $testMethod
-                );
-                // Change exit code to 1 if invalid
-                $allValid = $allValid && $isValid;
-
-                $validityText = $isValid ? 'Valid' : 'Invalid';
-                $output->writeln($validityText . ' - ' . $testClass . '::' . $testMethod);
+        $suiteIterator = new \RecursiveIteratorIterator($suiteList);
+        /** @var \PHPUnit_Framework_TestCase $suite */
+        foreach ($suiteIterator as $suite) {
+            if ($suite instanceof \PHPUnit_Framework_Warning) {
+                continue;
             }
+
+            $testClass = get_class($suite);
+            $testMethod = $suite->getName();
+            $isValid = Validator::isValidMethod(
+                $testClass,
+                $testMethod
+            );
+
+            // Change exit code to 1 if invalid
+            $allValid = $allValid && $isValid;
+
+            $validityText = $isValid ? 'Valid' : 'Invalid';
+            $output->writeln($validityText . ' - ' . $testClass . '::' . $testMethod);
         }
 
         // Return exit code 1 if any of the tags are invalid

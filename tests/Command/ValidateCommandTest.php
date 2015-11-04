@@ -76,6 +76,21 @@ class ValidateCommandTest extends BaseTestCase
         $this->assertRegExp('/Valid/', $commandTester->getDisplay());
     }
 
+    public function testSkipsEmptyTestClasses()
+    {
+        $app = new CoversValidator;
+        /** @var ValidateCommand $command */
+        $command = $app->find('validate');
+        $commandTester = new CommandTester($command);
+        $exitCode = $commandTester->execute(array(
+            '-c' => 'tests/Fixtures/configuration-multi-testsuite.xml'
+        ));
+
+        $this->assertEquals(0, $exitCode);
+        $this->assertNotRegExp('/PHPUnit_Framework_Warning::Warning/', $commandTester->getDisplay());
+        $this->assertRegExp('/Valid/', $commandTester->getDisplay());
+    }
+
     public function testApplicationHasDefaultCommand()
     {
         $input = new ArrayInput(array(
