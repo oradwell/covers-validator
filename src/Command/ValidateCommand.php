@@ -13,6 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 class ValidateCommand extends Command
 {
     /**
+     * @var bool
+     */
+    protected $firstValidityWrite = true;
+
+    /**
      * {@inheritdoc}
      */
     protected function configure()
@@ -24,12 +29,15 @@ class ValidateCommand extends Command
                 InputOption::VALUE_REQUIRED,
                 'Read PHPUnit configuration from XML file.'
             )
+            ->addUsage('-c app')
+            ->addUsage('-c tests/configuration.xml')
             ->addOption(
                 'bootstrap',
                 null,
                 InputOption::VALUE_REQUIRED,
                 'A "bootstrap" PHP file that is run before the validation.'
-            );
+            )
+            ->addUsage('--bootstrap=tests/bootstrap.php');
     }
 
     /**
@@ -37,15 +45,23 @@ class ValidateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $configuration = InputHandler::handleInput($input);
-        $suiteList = TestSuiteLoader::loadSuite($configuration);
+        $output->writeln($this->getApplication()->getLongVersion());
 
+        $configuration = InputHandler::handleInput($input);
+        if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE) {
+            $output->writeln(PHP_EOL . sprintf(
+                'Configuration file loaded: %s',
+                $configuration->getFilename()
+            ));
+        }
+
+        $suiteList = TestSuiteLoader::loadSuite($configuration);
         if (!count($suiteList)) {
-            $output->writeln('No tests found to validate.');
+            $output->writeln(PHP_EOL . 'No tests found to validate.');
             return 0;
         }
 
-        $allValid = true;
+        $failedCount = 0;
         $suiteIterator = new \RecursiveIteratorIterator($suiteList);
         /** @var \PHPUnit_Framework_TestCase $suite */
         foreach ($suiteIterator as $suite) {
@@ -55,20 +71,62 @@ class ValidateCommand extends Command
 
             $testClass = get_class($suite);
             $testMethod = $suite->getName();
+            $testSignature = $testClass . '::' . $testMethod;
+
+            if ($output->getVerbosity() >= OutputInterface::VERBOSITY_DEBUG) {
+                $this->writeValidity($output, 'Validating ' . $testSignature . '...');
+            }
+
             $isValid = Validator::isValidMethod(
                 $testClass,
                 $testMethod
             );
 
-            // Change exit code to 1 if invalid
-            $allValid = $allValid && $isValid;
-
-            $validityText = $isValid ? 'Valid' : 'Invalid';
-            $output->writeln($validityText . ' - ' . $testClass . '::' . $testMethod);
+            if (!$isValid) {
+                $failedCount++;
+                $this->writeValidity($output, $testSignature, false);
+            } elseif ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
+                $this->writeValidity($output, $testSignature, true);
+            }
         }
 
-        // Return exit code 1 if any of the tags are invalid
-        // otherwise return exit code 0
-        return (int) !$allValid;
+        $output->writeln('');
+
+        if ($failedCount > 0) {
+            $output->writeln(
+                "There were {$failedCount} test(s) with invalid @covers tags."
+            );
+
+            return 1;
+        }
+
+        $output->writeln('Validation complete. All @covers tags are valid.');
+
+        return 0;
+    }
+
+    /**
+     * Write validity message for tests
+     * The purpose of this method is to write a new line for the first
+     * validity related message
+     *
+     * @param OutputInterface $output
+     * @param string $message
+     */
+    protected function writeValidity($output, $message, $isValid = null) {
+        if ($this->firstValidityWrite) {
+            $output->writeln('');
+            $this->firstValidityWrite = false;
+        }
+
+        if (is_bool($isValid)) {
+            $message = sprintf(
+                '%s - %s',
+                $isValid ? '<fg=green>Valid</>' : '<fg=red>Invalid</>',
+                $message
+            );
+        }
+
+        $output->writeln($message);
     }
 }

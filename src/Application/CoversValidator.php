@@ -8,6 +8,17 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class CoversValidator extends Application
 {
+    const NAME = 'CoversValidator';
+    const VERSION = '0.3';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct($name = self::NAME, $version = self::VERSION)
+    {
+        parent::__construct($name, $version);
+    }
+
     /**
      * {@inheritdoc}
      */
