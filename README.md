@@ -44,26 +44,56 @@ Usage
 vendor/bin/covers-validator
 ```
 
-You can give optional `-c` argument to load a particular PHPUnit configuration file:
+Give optional `-c` argument to load a particular PHPUnit configuration file:
 
 ```
 vendor/bin/covers-validator -c tests/Fixtures/configuration.xml
 ```
 
-You can override `bootstrap` specified in PHPUnit configuration:
+Override `bootstrap` specified in PHPUnit configuration:
 
 ```
 vendor/bin/covers-validator --bootstrap tests/bootstrap.php
 ```
 
+Disable output by providing `-q` argument
+
+```
+vendor/bin/covers-validator -q
+```
+
+Adjust the verbosity:
+
+| Verbosity | Shows                               |
+| --------- | ----------------------------------- |
+| -v        | Valid tests                         |
+| -vv       | Loaded configuration file           |
+| -vvv      | Test name before validation is done |
+
 ### Sample output
 
+#### Normal verbosity
+
 ```
-Valid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringExistingClassTest::testDummyTest
-Invalid - OckCyp\CoversValidator\Tests\Fixtures\TestCoveringNonExistentClassTest::testDummyTest
+Invalid - OckCyp\CoversValidator\Tests\Fixtures\TwoTestCoveringNonExistentClassTest::testDummyTest
+
+There were 1 test(s) with invalid @covers tags.
 ```
 
-*Tip:* Command gives exit code 1 when any of the covers tags are invalid.
+#### Maximum verbosity (debug)
+
+```
+Configuration file loaded: /home/omer/Projects/Personal/covers-validator/tests/Fixtures/configuration-all.xml
+
+Validating OckCyp\CoversValidator\Tests\Fixtures\TwoTestCoveringExistingClassTest::testDummyTest...
+Valid - OckCyp\CoversValidator\Tests\Fixtures\TwoTestCoveringExistingClassTest::testDummyTest
+Validating OckCyp\CoversValidator\Tests\Fixtures\TwoTestCoveringNonExistentClassTest::testDummyTest...
+Invalid - OckCyp\CoversValidator\Tests\Fixtures\TwoTestCoveringNonExistentClassTest::testDummyTest
+
+There were 1 test(s) with invalid @covers tags.
+```
+
+**Tip:** Command gives exit code 1 when any of the covers tags are invalid.
 Use this to fail your builds.
 
 Tests
