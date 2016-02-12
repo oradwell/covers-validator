@@ -19,6 +19,8 @@ Usually coverage reports are run less often than the tests as it takes
 a long time to run. This tool validates your @covers tags
 quicker than you run your tests.
 
+**Also see:** [dunkelfrosch/phpcoverfish](https://github.com/dunkelfrosch/phpcoverfish)
+
 Why?
 ----
 
