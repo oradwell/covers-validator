@@ -75,7 +75,7 @@ class ValidateCommandTest extends BaseTestCase
         $this->assertGreaterThan(0, $exitCode);
         $display = $commandTester->getDisplay();
         $this->assertRegExp('/Invalid - /', $display);
-        $this->assertRegExp('/' . preg_quote(CoversValidator::NAME . ' version ' . CoversValidator::VERSION) . '/', $display);
+        $this->assertRegExp('/' . preg_quote(CoversValidator::NAME, '/') . ' (?:version )?' . preg_quote(CoversValidator::VERSION, '/') . '/', $display);
         $this->assertRegExp('/There were 1 test\(s\) with invalid @covers tags./', $display);
     }
 
