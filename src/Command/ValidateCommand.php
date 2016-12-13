@@ -2,9 +2,9 @@
 
 namespace OckCyp\CoversValidator\Command;
 
+use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Loader\TestSuiteLoader;
 use OckCyp\CoversValidator\Validator\Validator;
-use OckCyp\CoversValidator\Handler\InputHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -65,7 +65,10 @@ class ValidateCommand extends Command
         $suiteIterator = new \RecursiveIteratorIterator($suiteList);
         /** @var \PHPUnit_Framework_TestCase $suite */
         foreach ($suiteIterator as $suite) {
-            if ($suite instanceof \PHPUnit_Framework_Warning) {
+            // PHPUnit 4 and PHPUnit 5 uses different classes for this
+            if ($suite instanceof \PHPUnit_Framework_WarningTestCase
+                || $suite instanceof \PHPUnit_Framework_Warning
+            ) {
                 continue;
             }
 
@@ -112,6 +115,7 @@ class ValidateCommand extends Command
      *
      * @param OutputInterface $output
      * @param string $message
+     * @param bool|null $isValid
      */
     protected function writeValidity($output, $message, $isValid = null) {
         if ($this->firstValidityWrite) {
