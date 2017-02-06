@@ -2,7 +2,9 @@
 
 namespace OckCyp\CoversValidator\Tests\Fixtures;
 
-class TwoTestCoveringExistingClassTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class TwoTestCoveringExistingClassTest extends TestCase
 {
     /**
      * @covers OckCyp\CoversValidator\Tests\Fixtures\ExistingClass::existingMethod

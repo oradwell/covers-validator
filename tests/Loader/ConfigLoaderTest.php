@@ -16,7 +16,7 @@ class ConfigLoaderTest extends FileTestCase
         file_put_contents('temp-config.xml', $xml->asXML());
 
         $this->assertInstanceOf(
-            'PHPUnit_Util_Configuration',
+            'PHPUnit\Util\Configuration',
             ConfigLoader::loadConfig('temp-config.xml')
         );
     }

@@ -2,7 +2,9 @@
 
 namespace OckCyp\CoversValidator\Tests;
 
-abstract class BaseTestCase extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+abstract class BaseTestCase extends TestCase
 {
     const FIXTURE_NS_PREFIX = 'OckCyp\CoversValidator\Tests\Fixtures\\';
 

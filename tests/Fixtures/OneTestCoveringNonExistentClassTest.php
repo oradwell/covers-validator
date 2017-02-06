@@ -2,7 +2,9 @@
 
 namespace OckCyp\CoversValidator\Tests\Fixtures;
 
-class OneTestCoveringNonExistentClassTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class OneTestCoveringNonExistentClassTest extends TestCase
 {
     /**
      * @covers NonExistentClass
