@@ -9,7 +9,7 @@ ockcyp/covers-validator
 PHPUnit @covers tags validator
 
 [PHPUnit](https://github.com/sebastianbergmann/phpunit) fails to generate coverage report
-when tests have invalid [@covers](https://phpunit.de/manual/3.7/en/appendixes.annotations.html#appendixes.annotations.covers)
+when tests have invalid [@covers](https://phpunit.de/manual/6.0/en/appendixes.annotations.html#appendixes.annotations.covers)
 tags.
 
 This tool allows you to determine the tests that have invalid @covers tags
@@ -37,6 +37,21 @@ Installation
 
 ```
 composer require --dev ockcyp/covers-validator
+```
+
+### PHPUnit versions
+
+Latest version of covers-validator only supports PHP 7.x and PHPUnit 6.x. Please use version 0.5 for older PHP and PHPUnit versions.
+
+| PHPUnit version | Covers-validator version |
+| --------------- | ------------------------ |
+| < 6.0           | 0.5                      |
+| >= 6.0          | 0.6                      |
+
+Install using the following for version 0.5:
+
+```
+composer require --dev ockcyp/covers-validator "^0.5.0"
 ```
 
 Usage
