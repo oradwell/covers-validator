@@ -14,7 +14,7 @@ before_script:
   - if [[ "$COVERAGE" -eq 0 ]]; then composer install; else composer require satooshi/php-coveralls --dev; fi
 
 script:
-  - if [[ "$COVERAGE" -eq 0 ]]; then phpunit; else mkdir -p build/logs; phpunit --coverage-clover=build/logs/clover.xml; fi
+  - if [[ "$COVERAGE" -eq 0 ]]; then vendor/bin/phpunit; else mkdir -p build/logs; vendor/bin/phpunit --coverage-clover=build/logs/clover.xml; fi
 
 after_script:
   - if [[ "$COVERAGE" -gt 0 ]]; then vendor/bin/coveralls; fi
