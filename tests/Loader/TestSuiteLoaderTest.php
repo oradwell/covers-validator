@@ -12,11 +12,11 @@ class TestSuiteLoaderTest extends BaseTestCase
      */
     public function testLoadsSuite()
     {
-        $testSuite = $this->getMockBuilder('PHPUnit_Framework_TestSuite')
+        $testSuite = $this->getMockBuilder('PHPUnit\Framework\TestSuite')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $configuration = $this->getMockBuilder('PHPUnit_Util_Configuration')
+        $configuration = $this->getMockBuilder('PHPUnit\Util\Configuration')
             ->disableOriginalConstructor()
             ->setMethods(array('getTestSuiteConfiguration', 'handlePHPConfiguration'))
             ->getMock();

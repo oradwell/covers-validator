@@ -2,8 +2,8 @@
 
 namespace OckCyp\CoversValidator\Loader;
 
-use PHPUnit_Framework_TestSuite as TestSuite;
-use PHPUnit_Util_Configuration as Configuration;
+use PHPUnit\Framework\TestSuite;
+use PHPUnit\Util\Configuration;
 
 class TestSuiteLoader
 {

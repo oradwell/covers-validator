@@ -2,7 +2,7 @@
 
 namespace OckCyp\CoversValidator\Loader;
 
-use PHPUnit_Util_Configuration as Configuration;
+use PHPUnit\Util\Configuration;
 
 class ConfigLoader
 {

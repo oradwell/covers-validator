@@ -5,8 +5,8 @@ namespace OckCyp\CoversValidator\Handler;
 use OckCyp\CoversValidator\Loader\ConfigLoader;
 use OckCyp\CoversValidator\Loader\FileLoader;
 use OckCyp\CoversValidator\Locator\ConfigLocator;
+use PHPUnit\Util\Configuration;
 use Symfony\Component\Console\Input\InputInterface;
-use PHPUnit_Util_Configuration as Configuration;
 
 class InputHandler
 {

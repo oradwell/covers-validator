@@ -2,7 +2,9 @@
 
 namespace OckCyp\CoversValidator\Tests\Fixtures;
 
-class MultiClassTwoTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class MultiClassTwoTest extends TestCase
 {
 
 }

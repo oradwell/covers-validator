@@ -2,8 +2,8 @@
 
 namespace OckCyp\CoversValidator\Validator;
 
-use PHPUnit_Framework_CodeCoverageException as CodeCoverageException;
-use PHPUnit_Util_Test as Test;
+use PHPUnit\Framework\CodeCoverageException;
+use PHPUnit\Util\Test;
 
 class Validator
 {
