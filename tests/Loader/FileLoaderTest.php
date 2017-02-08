@@ -12,7 +12,6 @@ class FileLoaderTest extends FileTestCase
      */
     public function testLoadsFile()
     {
-        $this->assertFalse(isset($GLOBALS['cv_global_var']));
         file_put_contents('my1.php', '<?php $cv_global_var = true;');
         FileLoader::loadFile('my1.php');
         $this->assertTrue(isset($GLOBALS['cv_global_var']));
@@ -23,7 +22,6 @@ class FileLoaderTest extends FileTestCase
      */
     public function testLoadsFile2()
     {
-        $this->assertFalse(isset($GLOBALS['cv_global_var']));
         file_put_contents('my2.php', '<?php $cv_global_var = true;');
         FileLoader::loadFile('my2.php');
         $this->assertTrue(isset($GLOBALS['cv_global_var']));
