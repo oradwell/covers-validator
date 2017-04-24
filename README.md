@@ -45,8 +45,8 @@ Latest version of covers-validator only supports PHP 7.x and PHPUnit 6.x. Please
 
 | PHPUnit version | Covers-validator version |
 | --------------- | ------------------------ |
-| < 6.0           | 0.5                      |
-| >= 6.0          | 0.6                      |
+| < 6.0           | 0.5.1                    |
+| >= 6.0          | 0.6.1                    |
 
 Install using the following for version 0.5:
 
