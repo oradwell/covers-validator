@@ -41,12 +41,12 @@ composer require --dev ockcyp/covers-validator
 
 ### PHPUnit versions
 
-Latest version of covers-validator only supports PHP 7.x and PHPUnit 6.x. Please use version 0.5 for older PHP and PHPUnit versions.
+Latest version of covers-validator only supports PHP 7.x and PHPUnit 6.x / 7.x. Please use version 0.5 for older PHP and PHPUnit versions.
 
 | PHPUnit version | Covers-validator version |
 | --------------- | ------------------------ |
 | < 6.0           | 0.5.1                    |
-| >= 6.0          | 0.6.1                    |
+| >= 6.0          | 0.7.0                    |
 
 Install using the following for version 0.5:
 
