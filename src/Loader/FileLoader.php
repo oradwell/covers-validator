@@ -2,7 +2,7 @@
 
 namespace OckCyp\CoversValidator\Loader;
 
-use PHPUnit\Util\Fileloader as PHPUnitFileloader;
+use PHPUnit\Util\FileLoader as PHPUnitFileloader;
 
 class FileLoader
 {
