@@ -2,8 +2,6 @@
 
 namespace OckCyp\CoversValidator\Loader;
 
-use PHPUnit\Util\FileLoader as PHPUnitFileloader;
-
 class FileLoader
 {
     /**
@@ -13,6 +11,13 @@ class FileLoader
      */
     public static function loadFile($filename)
     {
-        PHPUnitFileloader::checkAndLoad($filename);
+    	if ( class_exists( \PHPUnit\Util\FileLoader::class ) ) {
+    		// PHPUnit 7.x+
+			\PHPUnit\Util\FileLoader::checkAndLoad($filename);
+		}
+		else {
+			// PHPUnit 6.x-
+			\PHPUnit\Util\Fileloader::checkAndLoad($filename);
+		}
     }
 }
