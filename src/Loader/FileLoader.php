@@ -14,8 +14,7 @@ class FileLoader
         if (class_exists(\PHPUnit\Util\Fileloader::class)) {
             // PHPUnit 6.x
             \PHPUnit\Util\Fileloader::checkAndLoad($filename);
-        }
-        else {
+        } else {
             // PHPUnit 7.x+
             \PHPUnit\Util\FileLoader::checkAndLoad($filename);
         }
