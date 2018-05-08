@@ -17,6 +17,8 @@ class OneTestWithProviderCoveringNonExistentClassTest extends TestCase
 
     public function provideDummyTest()
     {
-        return [['x']];
+        return array(
+            array('x'),
+        );
     }
 }
