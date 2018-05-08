@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.0.0 - 2018-05-08
+
+- Fix not failing for tests using data providers [20d3851](https://github.com/oradwell/covers-validator/commit/20d38510ae520fe7b8d076bc9a5a2dc2977573c3)
+- Add tests for empty covers tag [1e3f1ae](https://github.com/oradwell/covers-validator/commit/1e3f1ae2546618b92f763fea03f4d0a71aa0df09)
+
 ## v0.7.2 - 2018-05-08
 
 - Allow installation with symfony/console v4.x [#23](https://github.com/oradwell/covers-validator/pull/23)
