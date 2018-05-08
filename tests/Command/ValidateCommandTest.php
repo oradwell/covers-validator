@@ -79,6 +79,38 @@ class ValidateCommandTest extends BaseTestCase
         $this->assertRegExp('/There were 1 test\(s\) with invalid @covers tags./', $display);
     }
 
+    public function testReturnsFailForEmptyCoversTag()
+    {
+        $app = new CoversValidator;
+        /** @var ValidateCommand $command */
+        $command = $app->find('validate');
+        $commandTester = new CommandTester($command);
+        $exitCode = $commandTester->execute(array(
+            '-c' => 'tests/Fixtures/configuration-emptycovers.xml'
+        ));
+
+        $this->assertGreaterThan(0, $exitCode);
+        $display = $commandTester->getDisplay();
+        $this->assertRegExp('/Invalid - /', $display);
+        $this->assertRegExp('/There were 1 test\(s\) with invalid @covers tags./', $display);
+    }
+
+    public function testReturnsFailForInvalidCoversTagWithProvider()
+    {
+        $app = new CoversValidator;
+        /** @var ValidateCommand $command */
+        $command = $app->find('validate');
+        $commandTester = new CommandTester($command);
+        $exitCode = $commandTester->execute(array(
+            '-c' => 'tests/Fixtures/configuration-nonexistentprovider.xml'
+        ));
+
+        $this->assertGreaterThan(0, $exitCode);
+        $display = $commandTester->getDisplay();
+        $this->assertRegExp('/Invalid - /', $display);
+        $this->assertRegExp('/There were 1 test\(s\) with invalid @covers tags./', $display);
+    }
+
     public function testReturnsSuccessForExistingClasses()
     {
         $app = new CoversValidator;
@@ -98,6 +130,21 @@ class ValidateCommandTest extends BaseTestCase
         $display = $commandTester->getDisplay();
         $this->assertRegExp('/Valid - /', $display);
         $this->assertRegExp('/Validating /', $display);
+    }
+
+    public function testReturnsSuccessForValidCoversTagWithProvider()
+    {
+        $app = new CoversValidator;
+        /** @var ValidateCommand $command */
+        $command = $app->find('validate');
+        $commandTester = new CommandTester($command);
+        $exitCode = $commandTester->execute(array(
+            '-c' => 'tests/Fixtures/configuration-existingprovider.xml'
+        ));
+
+        $this->assertSame(0, $exitCode);
+        $display = $commandTester->getDisplay();
+        $this->assertRegExp('/Validation complete. All @covers tags are valid./', $display);
     }
 
     public function testReturnsFailForComboClasses()
