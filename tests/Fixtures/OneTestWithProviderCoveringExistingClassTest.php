@@ -15,6 +15,8 @@ class OneTestWithProviderCoveringExistingClassTest extends \PHPUnit_Framework_Te
 
     public function provideDummyTest()
     {
-
+        return array(
+            array('x'),
+        );
     }
 }

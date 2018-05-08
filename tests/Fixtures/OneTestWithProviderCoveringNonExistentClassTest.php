@@ -15,6 +15,8 @@ class OneTestWithProviderCoveringNonExistentClassTest extends \PHPUnit_Framework
 
     public function provideDummyTest()
     {
-        return [['x']];
+        return array(
+            array('x'),
+        );
     }
 }
