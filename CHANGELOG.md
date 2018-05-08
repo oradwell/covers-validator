@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.7.2 - 2018-05-08
+
+- Allow installation with symfony/console v4.x [#23](https://github.com/oradwell/covers-validator/pull/23)
+
 ## v0.7.1 - 2018-04-23
 
 - Fix FileLoader not working with PHPUnit 7.0 [#22](https://github.com/oradwell/covers-validator/pull/22)
