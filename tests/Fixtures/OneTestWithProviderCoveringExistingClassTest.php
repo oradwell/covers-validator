@@ -8,7 +8,7 @@ class OneTestWithProviderCoveringExistingClassTest extends \PHPUnit_Framework_Te
      * @covers OckCyp\CoversValidator\Tests\Fixtures\ExistingClass::existingMethod
      * @dataProvider provideDummyTest
      */
-    public function testDummyTest()
+    public function testDummyTest($x)
     {
 
     }
