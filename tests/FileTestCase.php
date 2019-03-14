@@ -17,7 +17,7 @@ abstract class FileTestCase extends BaseTestCase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    public function setUp(): void
     {
         // Save the original directory
         $this->runDir = getcwd();
@@ -32,7 +32,7 @@ abstract class FileTestCase extends BaseTestCase
     /**
      * {@inheritdoc}
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         // Return back to original directory
         chdir($this->runDir);
