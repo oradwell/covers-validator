@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.1.0 - 2019-03-15
+
+- PHPUnit 8.x support [#25](https://github.com/oradwell/covers-validator/pull/25)
+
 ## v1.0.0 - 2018-05-08
 
 - Fix not failing for tests using data providers [20d3851](https://github.com/oradwell/covers-validator/commit/20d38510ae520fe7b8d076bc9a5a2dc2977573c3)

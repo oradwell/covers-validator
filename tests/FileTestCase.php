@@ -2,7 +2,14 @@
 
 namespace OckCyp\CoversValidator\Tests;
 
-abstract class FileTestCase extends BaseTestCase
+// Keep PHP 7.0 support whilst allowing PHPUnit 8.0 support
+if (version_compare(PHP_VERSION, '7.1.0') >= 0) {
+    class_alias('OckCyp\CoversValidator\Tests\FileTestCase71', 'OckCyp\CoversValidator\Tests\BaseFileTestCase');
+} else {
+    class_alias('OckCyp\CoversValidator\Tests\FileTestCase70', 'OckCyp\CoversValidator\Tests\BaseFileTestCase');
+}
+
+abstract class FileTestCase extends BaseFileTestCase
 {
     /**
      * @var string
@@ -15,9 +22,9 @@ abstract class FileTestCase extends BaseTestCase
     private $runDir;
 
     /**
-     * {@inheritdoc}
+     * Run before each test. Called by TestCase::setUp
      */
-    public function setUp(): void
+    protected function preTestRun()
     {
         // Save the original directory
         $this->runDir = getcwd();
@@ -30,9 +37,9 @@ abstract class FileTestCase extends BaseTestCase
     }
 
     /**
-     * {@inheritdoc}
+     * Run after each test. Called by TestCase::tearDown
      */
-    public function tearDown(): void
+    protected function postTestRun()
     {
         // Return back to original directory
         chdir($this->runDir);
