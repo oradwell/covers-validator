@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.2.0 - 2020-06-18
+
+- PHPUnit 9.x support [#27](https://github.com/oradwell/covers-validator/pull/27)
+
 ## v1.1.1 - 2020-02-05
 
 - symfony/console 5.0 support [#26](https://github.com/oradwell/covers-validator/pull/26)
