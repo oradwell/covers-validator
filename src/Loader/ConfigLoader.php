@@ -17,6 +17,7 @@ class ConfigLoader
     public static function loadConfig(string $fileName): ConfigurationHolder
     {
         if (class_exists(Configuration::class)) {
+            // @codeCoverageIgnoreStart
             $configuration = Configuration::getInstance($fileName);
             $filename = $configuration->getFilename();
             $phpunit = $configuration->getPHPUnitConfiguration();
@@ -24,6 +25,7 @@ class ConfigLoader
             if (isset($phpunit['bootstrap'])) {
                 $bootstrap = $phpunit['bootstrap'];
             }
+            // @codeCoverageIgnoreEnd
         } else {
             $loader = new Loader();
 

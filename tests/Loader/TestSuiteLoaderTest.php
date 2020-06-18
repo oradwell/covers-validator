@@ -6,9 +6,9 @@ use OckCyp\CoversValidator\Loader\TestSuiteLoader;
 use OckCyp\CoversValidator\Tests\BaseTestCase;
 use OckCyp\CoversValidator\Model\ConfigurationHolder;
 use OckCyp\CoversValidator\Model\TestCollection;
-use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 use PHPUnit\TextUI\Configuration\Configuration as PHPUnit9Configuration;
 use PHPUnit\TextUI\Configuration\Loader as PHPUnit9ConfigurationLoader;
+use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 
 class TestSuiteLoaderTest extends BaseTestCase
 {
