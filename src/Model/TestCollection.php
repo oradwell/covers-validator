@@ -54,6 +54,6 @@ class TestCollection implements \Iterator
 
     public function isEmpty(): bool
     {
-        return !$this->iterator->hasChildren();
+        return !$this->iterator->valid() || !$this->iterator->hasChildren();
     }
 }
