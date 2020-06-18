@@ -6,7 +6,6 @@ use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Loader\TestSuiteLoader;
 use OckCyp\CoversValidator\Validator\Validator;
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\WarningTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -49,28 +48,23 @@ class ValidateCommand extends Command
     {
         $output->writeln($this->getApplication()->getLongVersion());
 
-        $configuration = InputHandler::handleInput($input);
+        $configurationHolder = InputHandler::handleInput($input);
         if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE) {
             $output->writeln(PHP_EOL . sprintf(
                 'Configuration file loaded: %s',
-                $configuration->getFilename()
+                $configurationHolder->getFilename()
             ));
         }
 
-        $suiteList = TestSuiteLoader::loadSuite($configuration);
-        if (!count($suiteList)) {
+        $testCollection = TestSuiteLoader::loadSuite($configurationHolder);
+        if (!count($testCollection)) {
             $output->writeln(PHP_EOL . 'No tests found to validate.');
             return 0;
         }
 
         $failedCount = 0;
-        $suiteIterator = new \RecursiveIteratorIterator($suiteList);
         /** @var TestCase $suite */
-        foreach ($suiteIterator as $suite) {
-            if ($suite instanceof WarningTestCase) {
-                continue;
-            }
-
+        foreach ($testCollection as $suite) {
             $testClass = get_class($suite);
             $testMethod = $suite->getName(false);
             $testSignature = $testClass . '::' . $suite->getName();
