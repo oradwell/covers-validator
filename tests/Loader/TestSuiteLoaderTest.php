@@ -4,21 +4,62 @@ namespace OckCyp\CoversValidator\Tests\Loader;
 
 use OckCyp\CoversValidator\Loader\TestSuiteLoader;
 use OckCyp\CoversValidator\Tests\BaseTestCase;
-use PHPUnit\Framework\TestSuite;
-use PHPUnit\Util\Configuration;
+use OckCyp\CoversValidator\Model\ConfigurationHolder;
+use OckCyp\CoversValidator\Model\TestCollection;
+use PHPUnit\TextUI\Configuration\Configuration as PHPUnit9Configuration;
+use PHPUnit\TextUI\Configuration\Loader as PHPUnit9ConfigurationLoader;
+use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 
 class TestSuiteLoaderTest extends BaseTestCase
 {
     /**
      * @covers OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
      */
-    public function testLoadsSuite()
+    public function testLoadsSuitePHPUnit8()
     {
-        $configuration = Configuration::getInstance('tests/Fixtures/configuration-existing.xml');
+        if (!class_exists(PHPUnit8Configuration::class)) {
+            $this->markTestSkipped('Only for PHPUnit 8 and below');
+        }
 
-        $returnedSuite = TestSuiteLoader::loadSuite($configuration);
+        $configuration = PHPUnit8Configuration::getInstance('tests/Fixtures/configuration-existing-2.xml');
 
-        $this->assertInstanceOf(TestSuite::class, $returnedSuite);
-        $this->assertEquals('My Test Suite', $returnedSuite->getName());
+        $configurationHolder = new ConfigurationHolder($configuration, '', '');
+
+        $testCollection = TestSuiteLoader::loadSuite($configurationHolder);
+
+        $this->assertInstanceOf(TestCollection::class, $testCollection);
+
+        foreach ($testCollection as $test) {
+            $this->assertEquals('testDummyTest', $test->getName());
+
+            return;
+        }
+    }
+
+    /**
+     * @covers OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
+     * @covers OckCyp\CoversValidator\Model\TestCollection
+     */
+    public function testLoadsSuitePHPUnit9()
+    {
+        if (!class_exists(PHPUnit9Configuration::class)) {
+            $this->markTestSkipped('Only for PHPUnit 9 and above');
+        }
+
+        $loader = new PHPUnit9ConfigurationLoader();
+
+        $configuration = $loader->load('tests/Fixtures/configuration-existing-2.xml');
+
+        $configurationHolder = new ConfigurationHolder($configuration, '', '');
+
+        $testCollection = TestSuiteLoader::loadSuite($configurationHolder);
+
+        $this->assertInstanceOf(TestCollection::class, $testCollection);
+
+        foreach ($testCollection as $key => $test) {
+            $this->assertEquals('testDummyTest', $test->getName());
+
+            return;
+        }
     }
 }

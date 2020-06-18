@@ -49,24 +49,23 @@ class ValidateCommand extends Command
     {
         $output->writeln($this->getApplication()->getLongVersion());
 
-        $configuration = InputHandler::handleInput($input);
+        $configurationHolder = InputHandler::handleInput($input);
         if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE) {
             $output->writeln(PHP_EOL . sprintf(
                 'Configuration file loaded: %s',
-                $configuration->getFilename()
+                $configurationHolder->getFilename()
             ));
         }
 
-        $suiteList = TestSuiteLoader::loadSuite($configuration);
-        if (!count($suiteList)) {
+        $testCollection = TestSuiteLoader::loadSuite($configurationHolder);
+        if ($testCollection->isEmpty()) {
             $output->writeln(PHP_EOL . 'No tests found to validate.');
             return 0;
         }
 
         $failedCount = 0;
-        $suiteIterator = new \RecursiveIteratorIterator($suiteList);
         /** @var TestCase $suite */
-        foreach ($suiteIterator as $suite) {
+        foreach ($testCollection as $suite) {
             if ($suite instanceof WarningTestCase) {
                 continue;
             }
