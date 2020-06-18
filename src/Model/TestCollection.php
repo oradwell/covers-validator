@@ -12,48 +12,53 @@ class TestCollection implements \Iterator
      */
     private $iterator;
 
+    /**
+     * @var \Iterator
+     */
+    private $iteratorIterator;
+
     public function __construct(ConfigurationHolder $configurationHolder)
     {
         $configuration = $configurationHolder->getConfiguration();
 
         if ($configuration instanceof PHPUnit8Configuration) {
-            $iterator = $configuration->getTestSuiteConfiguration();
+            $this->iterator = $configuration->getTestSuiteConfiguration();
         } else {
             $testSuiteMapper = new TestSuiteMapper();
 
-            $iterator = $testSuiteMapper->map($configuration->testSuite(), '');
+            $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
         }
 
-        $this->iterator = new \RecursiveIteratorIterator($iterator);
+        $this->iteratorIterator = new \RecursiveIteratorIterator($this->iterator);
     }
 
     public function current()
     {
-        return $this->iterator->current();
+        return $this->iteratorIterator->current();
     }
 
     public function key()
     {
-        return $this->iterator->key();
+        return $this->iteratorIterator->key();
     }
 
     public function next()
     {
-        $this->iterator->next();
+        $this->iteratorIterator->next();
     }
 
     public function rewind()
     {
-        $this->iterator->rewind();
+        $this->iteratorIterator->rewind();
     }
 
     public function valid(): bool
     {
-        return $this->iterator->valid();
+        return $this->iteratorIterator->valid();
     }
 
     public function isEmpty(): bool
     {
-        return !$this->iterator->valid() || !$this->iterator->hasChildren();
+        return !\count($this->iterator);
     }
 }
