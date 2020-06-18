@@ -3,6 +3,7 @@
 namespace OckCyp\CoversValidator\Tests\Loader;
 
 use OckCyp\CoversValidator\Loader\ConfigLoader;
+use OckCyp\CoversValidator\Model\ConfigurationHolder;
 use OckCyp\CoversValidator\Tests\FileTestCase;
 
 class ConfigLoaderTest extends FileTestCase
@@ -16,7 +17,7 @@ class ConfigLoaderTest extends FileTestCase
         file_put_contents('temp-config.xml', $xml->asXML());
 
         $this->assertInstanceOf(
-            'PHPUnit\Util\Configuration',
+            ConfigurationHolder::class,
             ConfigLoader::loadConfig('temp-config.xml')
         );
     }

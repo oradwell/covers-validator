@@ -6,6 +6,7 @@ use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Loader\TestSuiteLoader;
 use OckCyp\CoversValidator\Validator\Validator;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\WarningTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -57,7 +58,7 @@ class ValidateCommand extends Command
         }
 
         $testCollection = TestSuiteLoader::loadSuite($configurationHolder);
-        if (!count($testCollection)) {
+        if ($testCollection->isEmpty()) {
             $output->writeln(PHP_EOL . 'No tests found to validate.');
             return 0;
         }
@@ -65,6 +66,10 @@ class ValidateCommand extends Command
         $failedCount = 0;
         /** @var TestCase $suite */
         foreach ($testCollection as $suite) {
+            if ($suite instanceof WarningTestCase) {
+                continue;
+            }
+
             $testClass = get_class($suite);
             $testMethod = $suite->getName(false);
             $testSignature = $testClass . '::' . $suite->getName();

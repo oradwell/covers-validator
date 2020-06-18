@@ -4,7 +4,7 @@ namespace OckCyp\CoversValidator\Tests\Handler;
 
 use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Tests\BaseTestCase;
-use PHPUnit\Util\Configuration;
+use OckCyp\CoversValidator\Model\ConfigurationHolder;
 use Symfony\Component\Console\Input\InputInterface;
 
 /**
@@ -29,7 +29,7 @@ class InputHandlerTest extends BaseTestCase
 
         $config = InputHandler::handleInput($input->reveal());
 
-        $this->assertInstanceOf(Configuration::class, $config);
+        $this->assertInstanceOf(ConfigurationHolder::class, $config);
     }
 
     /**
@@ -55,7 +55,7 @@ class InputHandlerTest extends BaseTestCase
 
         $config = InputHandler::handleInput($input->reveal());
 
-        $this->assertInstanceOf(Configuration::class, $config);
+        $this->assertInstanceOf(ConfigurationHolder::class, $config);
 
         $this->assertTrue(
             class_exists(
@@ -87,7 +87,7 @@ class InputHandlerTest extends BaseTestCase
 
         $config = InputHandler::handleInput($input->reveal());
 
-        $this->assertInstanceOf(Configuration::class, $config);
+        $this->assertInstanceOf(ConfigurationHolder::class, $config);
 
         $this->assertTrue(
             class_exists(
