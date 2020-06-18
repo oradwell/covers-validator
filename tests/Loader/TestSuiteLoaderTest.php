@@ -38,6 +38,7 @@ class TestSuiteLoaderTest extends BaseTestCase
 
     /**
      * @covers OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
+     * @covers OckCyp\CoversValidator\Model\TestCollection
      */
     public function testLoadsSuitePHPUnit9()
     {
@@ -55,7 +56,7 @@ class TestSuiteLoaderTest extends BaseTestCase
 
         $this->assertInstanceOf(TestCollection::class, $testCollection);
 
-        foreach ($testCollection as $test) {
+        foreach ($testCollection as $key => $test) {
             $this->assertEquals('testDummyTest', $test->getName());
 
             return;
