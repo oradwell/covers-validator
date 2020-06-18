@@ -18,6 +18,8 @@ use Symfony\Component\Console\Tester\CommandTester;
  *
  * @covers OckCyp\CoversValidator\Application\CoversValidator
  * @covers OckCyp\CoversValidator\Command\ValidateCommand
+ * @covers OckCyp\CoversValidator\Model\TestCollection
+ * @covers OckCyp\CoversValidator\Model\ConfigurationHolder
  */
 class ValidateCommandTest extends BaseTestCase
 {
