@@ -20,7 +20,10 @@ class ConfigLoader
             $configuration = Configuration::getInstance($fileName);
             $filename = $configuration->getFilename();
             $phpunit = $configuration->getPHPUnitConfiguration();
-            $bootstrap = $phpunit['bootstrap'];
+            $bootstrap = '';
+            if (isset($phpunit['bootstrap'])) {
+                $bootstrap = $phpunit['bootstrap'];
+            }
         } else {
             $loader = new Loader();
 

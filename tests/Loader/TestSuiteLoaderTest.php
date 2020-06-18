@@ -19,11 +19,18 @@ class TestSuiteLoaderTest extends BaseTestCase
             $this->markTestSkipped('Only for PHPUnit 8 and below');
         }
 
-        $configurationHolder = new ConfigurationHolder($config, '', '');
+        $configuration = \PHPUnit\Util\Configuration::getInstance('tests/Fixtures/configuration-existing-2.xml');
 
-        $returnedSuite = TestSuiteLoader::loadSuite($configurationHolder);
+        $configurationHolder = new ConfigurationHolder($configuration, '', '');
 
-        $this->assertInstanceOf(TestSuite::class, $returnedSuite);
-        $this->assertEquals('My Test Suite', $returnedSuite->getName());
+        $testCollection = TestSuiteLoader::loadSuite($configurationHolder);
+
+        $this->assertInstanceOf(TestCollection::class, $testCollection);
+
+        foreach ($testCollection as $test) {
+            $this->assertEquals('testDummyTest', $test->getName());
+
+            return;
+        }
     }
 }

@@ -27,7 +27,7 @@ class InputHandler
             $bootstrap = $input->getOption('bootstrap');
         }
 
-        if (isset($bootstrap)) {
+        if ($bootstrap) {
             FileLoader::loadFile($bootstrap);
         }
 
