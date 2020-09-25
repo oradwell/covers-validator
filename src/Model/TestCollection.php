@@ -3,7 +3,6 @@
 namespace OckCyp\CoversValidator\Model;
 
 use PHPUnit\Util\Configuration as PHPUnit8Configuration;
-use PHPUnit\TextUI\Configuration\TestSuiteMapper;
 
 class TestCollection implements \Iterator
 {
@@ -24,7 +23,16 @@ class TestCollection implements \Iterator
         if ($configuration instanceof PHPUnit8Configuration) {
             $this->iterator = $configuration->getTestSuiteConfiguration();
         } else {
-            $testSuiteMapper = new TestSuiteMapper();
+            // PHPUnit < 9.3
+            if (class_exists('PHPUnit\TextUI\Configuration\TestSuiteMapper', true)) {
+                $testSuiteMapper = new \PHPUnit\TextUI\Configuration\TestSuiteMapper();
+            }
+            // PHPUnit >= 9.3
+            elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper', true)) {
+                $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper();
+            } else {
+                throw new \RuntimeException('Could not find PHPUnit\'s TestSuiteMapper class.');
+            }
 
             $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
         }

@@ -3,7 +3,6 @@
 namespace OckCyp\CoversValidator\Loader;
 
 use OckCyp\CoversValidator\Model\ConfigurationHolder;
-use PHPUnit\TextUI\Configuration\Loader;
 use PHPUnit\Util\Configuration;
 
 class ConfigLoader
@@ -27,7 +26,16 @@ class ConfigLoader
             }
             // @codeCoverageIgnoreEnd
         } else {
-            $loader = new Loader();
+            // PHPUnit < 9.3
+            if (class_exists('PHPUnit\TextUI\Configuration\Loader', true)) {
+                $loader = new \PHPUnit\TextUI\Configuration\Loader();
+            }
+            // PHPUnit >= 9.3
+            elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\Loader', true)) {
+                $loader = new \PHPUnit\TextUI\XmlConfiguration\Loader();
+            } else {
+                throw new \RuntimeException('Could not find PHPUnit\'s configuration loader class.');
+            }
 
             $configuration = $loader->load($fileName);
             $filename = $configuration->filename();
