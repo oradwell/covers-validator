@@ -26,15 +26,14 @@ class ConfigLoader
             }
             // @codeCoverageIgnoreEnd
         } else {
-            // PHPUnit < 9.3
             if (class_exists('PHPUnit\TextUI\Configuration\Loader', true)) {
+                // PHPUnit < 9.3
                 $loader = new \PHPUnit\TextUI\Configuration\Loader();
-            }
-            // PHPUnit >= 9.3
-            elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\Loader', true)) {
+            } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\Loader', true)) {
+                // PHPUnit >= 9.3
                 $loader = new \PHPUnit\TextUI\XmlConfiguration\Loader();
             } else {
-                throw new \RuntimeException('Could not find PHPUnit\'s configuration loader class.');
+                throw new \RuntimeException('Could not find PHPUnit configuration loader class');
             }
 
             $configuration = $loader->load($fileName);

@@ -23,15 +23,14 @@ class TestCollection implements \Iterator
         if ($configuration instanceof PHPUnit8Configuration) {
             $this->iterator = $configuration->getTestSuiteConfiguration();
         } else {
-            // PHPUnit < 9.3
             if (class_exists('PHPUnit\TextUI\Configuration\TestSuiteMapper', true)) {
+                // PHPUnit < 9.3
                 $testSuiteMapper = new \PHPUnit\TextUI\Configuration\TestSuiteMapper();
-            }
-            // PHPUnit >= 9.3
-            elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper', true)) {
+            } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper', true)) {
+                // PHPUnit >= 9.3
                 $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper();
             } else {
-                throw new \RuntimeException('Could not find PHPUnit\'s TestSuiteMapper class.');
+                throw new \RuntimeException('Could not find PHPUnit TestSuiteMapper class');
             }
 
             $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
