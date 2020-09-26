@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.3.0 - 2020-09-26
+
+- Compatibility with PHPUnit >= 9.3 [#29](https://github.com/oradwell/covers-validator/pull/27)
+
 ## v1.2.0 - 2020-06-18
 
 - PHPUnit 9.x support [#27](https://github.com/oradwell/covers-validator/pull/27)
