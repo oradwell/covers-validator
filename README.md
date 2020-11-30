@@ -1,7 +1,7 @@
 ockcyp/covers-validator
 =======================
 
-[![Build Status](https://travis-ci.org/oradwell/covers-validator.svg?branch=master)](https://travis-ci.org/oradwell/covers-validator)
+[![Build Status](https://travis-ci.com/oradwell/covers-validator.svg?branch=master)](https://travis-ci.com/oradwell/covers-validator)
 [![Coverage Status](https://coveralls.io/repos/github/oradwell/covers-validator/badge.svg?branch=master)](https://coveralls.io/github/oradwell/covers-validator?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oradwell/covers-validator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oradwell/covers-validator/?branch=master)
 [![License](https://poser.pugx.org/ockcyp/covers-validator/license)](https://packagist.org/packages/ockcyp/covers-validator)
