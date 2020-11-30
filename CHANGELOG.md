@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.3.1 - 2020-11-30
+
+- PHP 8.0 support [#30](https://github.com/oradwell/covers-validator/pull/30)
+
 ## v1.3.0 - 2020-09-26
 
 - Compatibility with PHPUnit >= 9.3 [#29](https://github.com/oradwell/covers-validator/pull/27)
