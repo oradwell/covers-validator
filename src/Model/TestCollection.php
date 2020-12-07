@@ -27,8 +27,11 @@ class TestCollection implements \Iterator
                 // PHPUnit < 9.3
                 $testSuiteMapper = new \PHPUnit\TextUI\Configuration\TestSuiteMapper();
             } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper', true)) {
-                // PHPUnit >= 9.3
-                $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper();
+                // PHPUnit >= 9.3 & < 9.5
+                $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMappe();
+            } elseif (class_exists('PHPUnit\TextUI\TestSuiteMapper', true)) {
+                // PHPUnit >= 9.5
+                $testSuiteMapper = new \PHPUnit\TextUI\TestSuiteMapper();
             } else {
                 throw new \RuntimeException('Could not find PHPUnit TestSuiteMapper class');
             }
