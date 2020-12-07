@@ -1,8 +1,13 @@
 # CHANGELOG
 
+## v1.3.2 - 2020-12-07
+
+- Fix TestSuiteMapper for PHPUnit 9.5 [#33](https://github.com/oradwell/covers-validator/pull/33)
+
 ## v1.3.1 - 2020-11-30
 
 - PHP 8.0 support [#30](https://github.com/oradwell/covers-validator/pull/30)
+- Fix tests on PHP 8.0 [#32](https://github.com/oradwell/covers-validator/pull/32)
 
 ## v1.3.0 - 2020-09-26
 
