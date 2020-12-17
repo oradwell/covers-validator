@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.3.3 - 2020-12-17
+
+- Fix TestSuiteMapper typo for PHPUnit 9.3 [#35](https://github.com/oradwell/covers-validator/pull/35)
+
 ## v1.3.2 - 2020-12-07
 
 - Fix TestSuiteMapper for PHPUnit 9.5 [#33](https://github.com/oradwell/covers-validator/pull/33)
