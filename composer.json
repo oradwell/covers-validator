@@ -2,6 +2,7 @@
     "name": "ockcyp/covers-validator",
     "description": "Validates @covers tags in PHPUnit tests",
     "license": "MIT",
+    "keywords": ["phpunit", "coverage", "testing"],
     "authors": [
         {
             "name": "Oliver Radwell",
