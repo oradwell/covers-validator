@@ -14,6 +14,10 @@ class ConfigLocator
      */
     public static function locate($configOption)
     {
+        if (is_null($configOption)) {
+            $configOption = '';
+        }
+
         $configurationFile = static::CONFIG_FILENAME;
         if (is_dir($configOption)) {
             $configurationFile = $configOption . DIRECTORY_SEPARATOR . $configurationFile;
