@@ -51,7 +51,11 @@ class TestCollection implements \Iterator
         return $this->iteratorIterator->current();
     }
 
-    public function key(): mixed
+    /**
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
+    public function key()
     {
         return $this->iteratorIterator->key();
     }
