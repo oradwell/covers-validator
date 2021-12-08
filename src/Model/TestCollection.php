@@ -42,7 +42,11 @@ class TestCollection implements \Iterator
         $this->iteratorIterator = new \RecursiveIteratorIterator($this->iterator);
     }
 
-    public function current(): mixed
+    /**
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
+    public function current()
     {
         return $this->iteratorIterator->current();
     }
