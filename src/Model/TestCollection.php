@@ -42,30 +42,26 @@ class TestCollection implements \Iterator
         $this->iteratorIterator = new \RecursiveIteratorIterator($this->iterator);
     }
 
-    /**
-     * @return mixed
-     */
     #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->iteratorIterator->current();
     }
 
-    /**
-     * @return mixed
-     */
     #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->iteratorIterator->key();
     }
 
-    public function next(): void
+    #[\ReturnTypeWillChange]
+    public function next()
     {
         $this->iteratorIterator->next();
     }
 
-    public function rewind(): void
+    #[\ReturnTypeWillChange]
+    public function rewind()
     {
         $this->iteratorIterator->rewind();
     }
