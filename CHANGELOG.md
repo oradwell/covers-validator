@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.4.0 - 2021-12-11
+
+- Add PHP 8.1 to Travis CI testing matrix [#38](https://github.com/oradwell/covers-validator/pull/38)
+- Fix PHP 8.1 deprecations [#37](https://github.com/oradwell/covers-validator/pull/37) and [#39](https://github.com/oradwell/covers-validator/pull/39)
+
 ## v1.3.3 - 2020-12-17
 
 - Fix TestSuiteMapper typo for PHPUnit 9.3 [#35](https://github.com/oradwell/covers-validator/pull/35)
