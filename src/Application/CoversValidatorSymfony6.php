@@ -8,6 +8,9 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CoversValidatorSymfony6 extends Application
 {
     const NAME = 'CoversValidator';
