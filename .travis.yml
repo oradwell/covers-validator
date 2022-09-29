@@ -9,8 +9,7 @@ php:
   - 8.1.0
 
 env:
-  - COVERAGE=0
-  - INSTALL_PROPHECY=1
+  - COVERAGE=0 INSTALL_PROPHECY=1
 
 matrix:
   include:
