@@ -8,7 +8,9 @@ php:
   - 8.0
   - 8.1.0
 
-env: COVERAGE=0
+env:
+  - COVERAGE=0
+  - INSTALL_PROPHECY=1
 
 matrix:
   include:
@@ -16,9 +18,13 @@ matrix:
       env: COVERAGE=1
     - php: 7.0
       dist: xenial
+      env: INSTALL_PROPHECY=0
+    - php: 7.1
+      env: INSTALL_PROPHECY=0
 
 before_script:
   - if [[ "$COVERAGE" -eq 0 ]]; then composer install; else composer require php-coveralls/php-coveralls --dev; fi
+  - if [[ "$INSTALL_PROPHECY" -eq 1 ]]; then composer require phpspec/prophecy --dev; fi
 
 script:
   - if [[ "$COVERAGE" -eq 0 ]]; then vendor/bin/phpunit; else mkdir -p build/logs; vendor/bin/phpunit --coverage-clover=build/logs/clover.xml; fi
