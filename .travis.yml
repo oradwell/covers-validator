@@ -17,9 +17,6 @@ matrix:
       env: COVERAGE=1 INSTALL_PROPHECY=1
     - php: 7.4
       env: CSCHECK=1
-    - php: 7.0
-      dist: xenial
-      env: INSTALL_PROPHECY=0
     - php: 7.1
       env: INSTALL_PROPHECY=0
 
