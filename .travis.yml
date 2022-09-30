@@ -1,7 +1,6 @@
 dist: bionic
 language: php
 php:
-  - 7.1
   - 7.2
   - 7.3
   - 7.4
@@ -16,7 +15,7 @@ matrix:
     - php: 7.4
       env: COVERAGE=1 INSTALL_PROPHECY=1
     - php: 7.4
-      env: CSCHECK=1
+      env: CSCHECK=1 INSTALL_PROPHECY=1
     - php: 7.1
       env: INSTALL_PROPHECY=0
 
@@ -26,7 +25,8 @@ before_script:
   - if [[ "$CSCHECK" -eq 1 ]]; then wget -q https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v3.11.0/php-cs-fixer.phar; fi
 
 script:
-  - if [[ "$COVERAGE" -eq 0 ]]; then vendor/bin/phpunit; else mkdir -p build/logs; vendor/bin/phpunit --coverage-clover=build/logs/clover.xml; fi
+  - if [[ "$COVERAGE" -gt 0 ]]; then mkdir -p build/logs; vendor/bin/phpunit --coverage-clover=build/logs/clover.xml; fi
+  - if [ "$COVERAGE" -eq 0 ] -a [ $CSCHECK -eq 0 ]; then vendor/bin/phpunit; fi
   - if [[ "$CSCHECK" -eq 1 ]]; then php php-cs-fixer.phar fix --dry-run --verbose --diff; fi
 
 after_script:
