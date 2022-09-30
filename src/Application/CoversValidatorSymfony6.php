@@ -2,7 +2,6 @@
 
 namespace OckCyp\CoversValidator\Application;
 
-use Composer\InstalledVersions;
 use OckCyp\CoversValidator\Command\ValidateCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputDefinition;

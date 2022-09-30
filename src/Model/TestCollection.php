@@ -54,14 +54,12 @@ class TestCollection implements \Iterator
         return $this->iteratorIterator->key();
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
         $this->iteratorIterator->next();
     }
 
-    #[\ReturnTypeWillChange]
-    public function rewind()
+    public function rewind(): void
     {
         $this->iteratorIterator->rewind();
     }

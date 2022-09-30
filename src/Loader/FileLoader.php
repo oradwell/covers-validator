@@ -11,14 +11,6 @@ class FileLoader
      */
     public static function loadFile($filename)
     {
-        if (class_exists(\PHPUnit\Util\Fileloader::class)) {
-            // PHPUnit 6.x
-            \PHPUnit\Util\Fileloader::checkAndLoad($filename);
-        } else {
-            // @codeCoverageIgnoreStart
-            // PHPUnit 7.x+
-            \PHPUnit\Util\FileLoader::checkAndLoad($filename);
-            // @codeCoverageIgnoreEnd
-        }
+        \PHPUnit\Util\FileLoader::checkAndLoad($filename);
     }
 }
