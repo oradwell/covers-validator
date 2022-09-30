@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.5.0 - 2022-09-30
+
+- Add Symfony 6 compatibility [#41](https://github.com/oradwell/covers-validator/pull/41)
+
 ## v1.4.0 - 2021-12-11
 
 - Add PHP 8.1 to Travis CI testing matrix [#38](https://github.com/oradwell/covers-validator/pull/38)
