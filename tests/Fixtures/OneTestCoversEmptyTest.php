@@ -11,6 +11,5 @@ class OneTestCoversEmptyTest extends TestCase
      */
     public function testDummyTest()
     {
-
     }
 }

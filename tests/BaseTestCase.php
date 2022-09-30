@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class BaseTestCase extends TestCase
 {
-    const FIXTURE_NS_PREFIX = 'OckCyp\CoversValidator\Tests\Fixtures\\';
+    public const FIXTURE_NS_PREFIX = 'OckCyp\CoversValidator\Tests\Fixtures\\';
 
     /**
      * Returns the namespace of fixture class

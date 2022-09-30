@@ -12,7 +12,7 @@ class CoversValidatorTest extends BaseTestCase
 {
     public function testApplicationIsRight()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         $defaultCommands = $app->all();
         $definition = $app->getDefinition();
 

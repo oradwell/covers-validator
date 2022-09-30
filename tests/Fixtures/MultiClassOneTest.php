@@ -8,6 +8,5 @@ class MultiClassOneTest extends TestCase
 {
     public function testDoesSomething()
     {
-
     }
 }

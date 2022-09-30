@@ -4,7 +4,7 @@ namespace OckCyp\CoversValidator\Locator;
 
 class ConfigLocator
 {
-    const CONFIG_FILENAME = 'phpunit.xml';
+    public const CONFIG_FILENAME = 'phpunit.xml';
 
     /**
      * Locates config file to use in the way PHPUnit does it

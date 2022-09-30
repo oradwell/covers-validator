@@ -27,17 +27,17 @@ class ValidateCommandTest extends BaseTestCase
     {
         $configFile = 'tests/Fixtures/configuration-empty.xml';
 
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute(
-            array(
+            [
                 '-c' => $configFile
-            ),
-            array(
+            ],
+            [
                 'verbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE
-            )
+            ]
         );
 
         $this->assertEquals(0, $exitCode);
@@ -52,13 +52,13 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testReturnsSuccessForEmptyTestSuite()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(array(
+        $exitCode = $commandTester->execute([
             '-c' => 'tests/Fixtures/configuration-empty.xml'
-        ));
+        ]);
 
         $this->assertEquals(0, $exitCode);
         $this->assertRegex('/No tests found to validate./', $commandTester->getDisplay());
@@ -66,13 +66,13 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testReturnsFailForNonExistentClasses()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(array(
+        $exitCode = $commandTester->execute([
             '-c' => 'tests/Fixtures/configuration-nonexistent.xml'
-        ));
+        ]);
 
         $this->assertGreaterThan(0, $exitCode);
         $display = $commandTester->getDisplay();
@@ -83,13 +83,13 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testReturnsFailForEmptyCoversTag()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(array(
+        $exitCode = $commandTester->execute([
             '-c' => 'tests/Fixtures/configuration-emptycovers.xml'
-        ));
+        ]);
 
         $this->assertGreaterThan(0, $exitCode);
         $display = $commandTester->getDisplay();
@@ -99,13 +99,13 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testReturnsFailForInvalidCoversTagWithProvider()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(array(
+        $exitCode = $commandTester->execute([
             '-c' => 'tests/Fixtures/configuration-nonexistentprovider.xml'
-        ));
+        ]);
 
         $this->assertGreaterThan(0, $exitCode);
         $display = $commandTester->getDisplay();
@@ -115,17 +115,17 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testReturnsSuccessForExistingClasses()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute(
-            array(
+            [
                 '-c' => 'tests/Fixtures/configuration-existing.xml',
-            ),
-            array(
+            ],
+            [
                 'verbosity' => OutputInterface::VERBOSITY_DEBUG
-            )
+            ]
         );
 
         $this->assertEquals(0, $exitCode);
@@ -136,13 +136,13 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testReturnsSuccessForValidCoversTagWithProvider()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(array(
+        $exitCode = $commandTester->execute([
             '-c' => 'tests/Fixtures/configuration-existingprovider.xml'
-        ));
+        ]);
 
         $this->assertSame(0, $exitCode);
         $display = $commandTester->getDisplay();
@@ -151,13 +151,13 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testReturnsFailForComboClasses()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(array(
+        $exitCode = $commandTester->execute([
             '-c' => 'tests/Fixtures/configuration-all.xml'
-        ));
+        ]);
 
         $this->assertGreaterThan(0, $exitCode);
         $display = $commandTester->getDisplay();
@@ -167,17 +167,17 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testSkipsEmptyTestClasses()
     {
-        $app = new CoversValidator;
+        $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute(
-            array(
+            [
                 '-c' => 'tests/Fixtures/configuration-multi-testsuite.xml'
-            ),
-            array(
+            ],
+            [
                 'verbosity' => OutputInterface::VERBOSITY_DEBUG
-            )
+            ]
         );
 
         $this->assertEquals(0, $exitCode);
@@ -187,25 +187,25 @@ class ValidateCommandTest extends BaseTestCase
 
     public function testApplicationHasDefaultCommand()
     {
-        $input = new ArrayInput(array(
+        $input = new ArrayInput([
             '-c' => 'tests/Fixtures/configuration-empty.xml'
-        ));
+        ]);
 
-        $app = new CoversValidator;
-        $exitCode = $app->doRun($input, new NullOutput);
+        $app = new CoversValidator();
+        $exitCode = $app->doRun($input, new NullOutput());
 
         $this->assertEquals(0, $exitCode);
     }
 
     public function testBootstrapOptionWorks()
     {
-        $input = new ArrayInput(array(
+        $input = new ArrayInput([
             '-c' => 'tests/Fixtures/configuration-empty.xml',
             '--bootstrap' => 'tests/Fixtures/bootstrap-3.php',
-        ));
+        ]);
 
-        $app = new CoversValidator;
-        $exitCode = $app->doRun($input, new NullOutput);
+        $app = new CoversValidator();
+        $exitCode = $app->doRun($input, new NullOutput());
 
         $this->assertEquals(0, $exitCode);
     }

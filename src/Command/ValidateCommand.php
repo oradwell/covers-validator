@@ -115,7 +115,8 @@ class ValidateCommand extends Command
      * @param string $message
      * @param bool|null $isValid
      */
-    protected function writeValidity($output, $message, $isValid = null) {
+    protected function writeValidity($output, $message, $isValid = null)
+    {
         if ($this->firstValidityWrite) {
             $output->writeln('');
             $this->firstValidityWrite = false;

@@ -8,8 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 
 class CoversValidatorSymfony5 extends Application
 {
-    const NAME = 'CoversValidator';
-    const VERSION = '1.5.0';
+    public const NAME = 'CoversValidator';
+    public const VERSION = '1.5.0';
 
     /**
      * {@inheritdoc}
@@ -33,7 +33,7 @@ class CoversValidatorSymfony5 extends Application
     protected function getDefaultCommands()
     {
         $defaultCommands = parent::getDefaultCommands();
-        $defaultCommands[] = new ValidateCommand;
+        $defaultCommands[] = new ValidateCommand();
 
         return $defaultCommands;
     }

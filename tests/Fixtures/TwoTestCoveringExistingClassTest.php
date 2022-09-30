@@ -11,6 +11,5 @@ class TwoTestCoveringExistingClassTest extends TestCase
      */
     public function testDummyTest()
     {
-
     }
 }

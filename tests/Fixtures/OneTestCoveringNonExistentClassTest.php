@@ -11,6 +11,5 @@ class OneTestCoveringNonExistentClassTest extends TestCase
      */
     public function testDummyTest()
     {
-
     }
 }

@@ -24,7 +24,7 @@ class ConfigLoader
             if (isset($phpunit['bootstrap'])) {
                 $bootstrap = $phpunit['bootstrap'];
             }
-            // @codeCoverageIgnoreEnd
+        // @codeCoverageIgnoreEnd
         } else {
             if (class_exists('PHPUnit\TextUI\Configuration\Loader', true)) {
                 // PHPUnit < 9.3

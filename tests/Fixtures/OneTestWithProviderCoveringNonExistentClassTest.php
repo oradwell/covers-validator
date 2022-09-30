@@ -12,13 +12,12 @@ class OneTestWithProviderCoveringNonExistentClassTest extends TestCase
      */
     public function testDummyTest($x)
     {
-
     }
 
     public function provideDummyTest()
     {
-        return array(
-            array('x'),
-        );
+        return [
+            ['x'],
+        ];
     }
 }
