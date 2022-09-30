@@ -3,9 +3,9 @@
 namespace OckCyp\CoversValidator\Tests\Loader;
 
 use OckCyp\CoversValidator\Loader\TestSuiteLoader;
-use OckCyp\CoversValidator\Tests\BaseTestCase;
 use OckCyp\CoversValidator\Model\ConfigurationHolder;
 use OckCyp\CoversValidator\Model\TestCollection;
+use OckCyp\CoversValidator\Tests\BaseTestCase;
 use PHPUnit\TextUI\Configuration\Configuration as PHPUnit9Configuration;
 use PHPUnit\TextUI\Configuration\Loader as PHPUnit9ConfigurationLoader;
 use PHPUnit\Util\Configuration as PHPUnit8Configuration;
@@ -13,7 +13,7 @@ use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 class TestSuiteLoaderTest extends BaseTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
+     * @covers \OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
      */
     public function testLoadsSuitePHPUnit8()
     {
@@ -37,8 +37,8 @@ class TestSuiteLoaderTest extends BaseTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
-     * @covers OckCyp\CoversValidator\Model\TestCollection
+     * @covers \OckCyp\CoversValidator\Loader\TestSuiteLoader::loadSuite
+     * @covers \OckCyp\CoversValidator\Model\TestCollection
      */
     public function testLoadsSuitePHPUnit9()
     {

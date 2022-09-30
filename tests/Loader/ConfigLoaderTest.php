@@ -9,7 +9,7 @@ use OckCyp\CoversValidator\Tests\FileTestCase;
 class ConfigLoaderTest extends FileTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Loader\ConfigLoader::loadConfig
+     * @covers \OckCyp\CoversValidator\Loader\ConfigLoader::loadConfig
      */
     public function testLoadsConfig()
     {

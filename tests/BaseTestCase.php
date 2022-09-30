@@ -17,7 +17,7 @@ abstract class BaseTestCase extends TestCase
      */
     protected function getFixtureClassName($class)
     {
-        return static::FIXTURE_NS_PREFIX . $class;
+        return static::FIXTURE_NS_PREFIX.$class;
     }
 
     protected function assertRegex(string $pattern, string $string, string $message = '')

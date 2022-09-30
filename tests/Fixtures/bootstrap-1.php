@@ -1,3 +1,3 @@
 <?php
 
-require __DIR__ . '/ClassThatNeedsBootstrap.php';
+require __DIR__.'/ClassThatNeedsBootstrap.php';

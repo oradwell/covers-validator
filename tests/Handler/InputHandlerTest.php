@@ -2,13 +2,12 @@
 
 namespace OckCyp\CoversValidator\Tests\Handler;
 
-use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Tests\BaseTestCase;
+use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Model\ConfigurationHolder;
-use Symfony\Component\Console\Input\InputInterface;
 
 /**
- * @coversDefaultClass OckCyp\CoversValidator\Handler\InputHandler
+ * @coversDefaultClass \OckCyp\CoversValidator\Handler\InputHandler
  */
 class InputHandlerTest extends BaseTestCase
 {

@@ -9,9 +9,6 @@ class ConfigLoader
 {
     /**
      * Load configuration from file
-     *
-     * @param string $fileName
-     * @return ConfigurationHolder
      */
     public static function loadConfig(string $fileName): ConfigurationHolder
     {

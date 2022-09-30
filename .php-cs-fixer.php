@@ -12,6 +12,9 @@ $config
     ->setRules([
         '@PSR12' => true,
         '@PHP71Migration' => true,
+        '@Symfony' => true,
+        'phpdoc_summary' => false,
+        'phpdoc_align' => false,
     ])
     ->setFinder($finder)
 ;

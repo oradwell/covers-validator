@@ -16,10 +16,10 @@ use Symfony\Component\Console\Tester\CommandTester;
  * For some reason had to split the test files into different suites
  * PHPUnit skips the files when command is run second time
  *
- * @covers OckCyp\CoversValidator\Application\CoversValidator
- * @covers OckCyp\CoversValidator\Command\ValidateCommand
- * @covers OckCyp\CoversValidator\Model\TestCollection
- * @covers OckCyp\CoversValidator\Model\ConfigurationHolder
+ * @covers \OckCyp\CoversValidator\Application\CoversValidator
+ * @covers \OckCyp\CoversValidator\Command\ValidateCommand
+ * @covers \OckCyp\CoversValidator\Model\TestCollection
+ * @covers \OckCyp\CoversValidator\Model\ConfigurationHolder
  */
 class ValidateCommandTest extends BaseTestCase
 {
@@ -33,10 +33,10 @@ class ValidateCommandTest extends BaseTestCase
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute(
             [
-                '-c' => $configFile
+                '-c' => $configFile,
             ],
             [
-                'verbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE
+                'verbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE,
             ]
         );
 
@@ -57,7 +57,7 @@ class ValidateCommandTest extends BaseTestCase
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-empty.xml'
+            '-c' => 'tests/Fixtures/configuration-empty.xml',
         ]);
 
         $this->assertEquals(0, $exitCode);
@@ -71,13 +71,13 @@ class ValidateCommandTest extends BaseTestCase
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-nonexistent.xml'
+            '-c' => 'tests/Fixtures/configuration-nonexistent.xml',
         ]);
 
         $this->assertGreaterThan(0, $exitCode);
         $display = $commandTester->getDisplay();
         $this->assertRegex('/Invalid - /', $display);
-        $this->assertRegex('/' . preg_quote(CoversValidator::NAME, '/') . ' (?:version )?' . preg_quote(CoversValidator::VERSION, '/') . '/', $display);
+        $this->assertRegex('/'.preg_quote(CoversValidator::NAME, '/').' (?:version )?'.preg_quote(CoversValidator::VERSION, '/').'/', $display);
         $this->assertRegex('/There were 1 test\(s\) with invalid @covers tags./', $display);
     }
 
@@ -88,7 +88,7 @@ class ValidateCommandTest extends BaseTestCase
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-emptycovers.xml'
+            '-c' => 'tests/Fixtures/configuration-emptycovers.xml',
         ]);
 
         $this->assertGreaterThan(0, $exitCode);
@@ -104,7 +104,7 @@ class ValidateCommandTest extends BaseTestCase
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-nonexistentprovider.xml'
+            '-c' => 'tests/Fixtures/configuration-nonexistentprovider.xml',
         ]);
 
         $this->assertGreaterThan(0, $exitCode);
@@ -124,7 +124,7 @@ class ValidateCommandTest extends BaseTestCase
                 '-c' => 'tests/Fixtures/configuration-existing.xml',
             ],
             [
-                'verbosity' => OutputInterface::VERBOSITY_DEBUG
+                'verbosity' => OutputInterface::VERBOSITY_DEBUG,
             ]
         );
 
@@ -141,7 +141,7 @@ class ValidateCommandTest extends BaseTestCase
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-existingprovider.xml'
+            '-c' => 'tests/Fixtures/configuration-existingprovider.xml',
         ]);
 
         $this->assertSame(0, $exitCode);
@@ -156,7 +156,7 @@ class ValidateCommandTest extends BaseTestCase
         $command = $app->find('validate');
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-all.xml'
+            '-c' => 'tests/Fixtures/configuration-all.xml',
         ]);
 
         $this->assertGreaterThan(0, $exitCode);
@@ -173,10 +173,10 @@ class ValidateCommandTest extends BaseTestCase
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute(
             [
-                '-c' => 'tests/Fixtures/configuration-multi-testsuite.xml'
+                '-c' => 'tests/Fixtures/configuration-multi-testsuite.xml',
             ],
             [
-                'verbosity' => OutputInterface::VERBOSITY_DEBUG
+                'verbosity' => OutputInterface::VERBOSITY_DEBUG,
             ]
         );
 
@@ -188,7 +188,7 @@ class ValidateCommandTest extends BaseTestCase
     public function testApplicationHasDefaultCommand()
     {
         $input = new ArrayInput([
-            '-c' => 'tests/Fixtures/configuration-empty.xml'
+            '-c' => 'tests/Fixtures/configuration-empty.xml',
         ]);
 
         $app = new CoversValidator();

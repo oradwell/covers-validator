@@ -2,8 +2,8 @@
 
 namespace OckCyp\CoversValidator\Application;
 
-use Symfony\Component\Console\Application;
 use OckCyp\CoversValidator\Command\ValidateCommand;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 
 class CoversValidatorSymfony5 extends Application
