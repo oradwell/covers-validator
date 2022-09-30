@@ -2,9 +2,9 @@
 
 namespace OckCyp\CoversValidator\Tests\Handler;
 
-use OckCyp\CoversValidator\Tests\BaseTestCase;
 use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Model\ConfigurationHolder;
+use OckCyp\CoversValidator\Tests\BaseTestCase;
 
 /**
  * @coversDefaultClass \OckCyp\CoversValidator\Handler\InputHandler
