@@ -4,12 +4,13 @@ namespace OckCyp\CoversValidator\Application;
 
 use Composer\InstalledVersions;
 
-$isSymfony6 = \version_compare(
-    InstalledVersions::getVersion('symfony/console'),
-    '6.0.0'
-) >= 0;
+$consoleVersion = InstalledVersions::getVersion('symfony/console');
 
-\class_alias(
-    $isSymfony6 ? CoversValidatorSymfony6::class : CoversValidatorSymfony5::class,
-    'OckCyp\CoversValidator\Application\CoversValidator'
-);
+$chosenClass = CoversValidatorSymfony5::class;
+if (\version_compare($consoleVersion, '6.0.0') >= 0) {
+    // @codeCoverageIgnoreStart
+    $chosenClass = CoversValidatorSymfony6::class;
+    // @codeCoverageIgnoreEnd
+}
+
+\class_alias($chosenClass, CoversValidator::class);
