@@ -6,6 +6,5 @@ class ExistingClass
 {
     public function existingMethod()
     {
-
     }
 }

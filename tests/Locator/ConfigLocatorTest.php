@@ -8,7 +8,7 @@ use OckCyp\CoversValidator\Tests\FileTestCase;
 class ConfigLocatorTest extends FileTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigPath()
     {
@@ -21,7 +21,7 @@ class ConfigLocatorTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigPathEvenWhenDistExists()
     {
@@ -35,7 +35,7 @@ class ConfigLocatorTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultDistConfigPath()
     {
@@ -48,12 +48,12 @@ class ConfigLocatorTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultDistConfigPathInGivenDirectory()
     {
         mkdir('some-other-dir');
-        $configPath = 'some-other-dir' . DIRECTORY_SEPARATOR . 'phpunit.xml.dist';
+        $configPath = 'some-other-dir'.DIRECTORY_SEPARATOR.'phpunit.xml.dist';
         touch($configPath);
 
         $this->assertEquals(
@@ -63,12 +63,12 @@ class ConfigLocatorTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigpathInGivenDirectory()
     {
         mkdir('some-other-dir');
-        $configPath = 'some-other-dir' . DIRECTORY_SEPARATOR . 'phpunit.xml';
+        $configPath = 'some-other-dir'.DIRECTORY_SEPARATOR.'phpunit.xml';
         touch($configPath);
 
         $this->assertEquals(
@@ -78,14 +78,14 @@ class ConfigLocatorTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsDefaultConfigpathInGivenDirectoryEvenWhenDistExists()
     {
         mkdir('some-other-dir');
-        $configPath = 'some-other-dir' . DIRECTORY_SEPARATOR . 'phpunit.xml';
+        $configPath = 'some-other-dir'.DIRECTORY_SEPARATOR.'phpunit.xml';
         touch($configPath);
-        touch($configPath . '.dist');
+        touch($configPath.'.dist');
 
         $this->assertEquals(
             realpath($configPath),
@@ -94,12 +94,12 @@ class ConfigLocatorTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testGetsGivenConfigFile()
     {
         mkdir('some-other-dir');
-        $configPath = 'some-other-dir' . DIRECTORY_SEPARATOR . 'some-config.xml';
+        $configPath = 'some-other-dir'.DIRECTORY_SEPARATOR.'some-config.xml';
         touch($configPath);
 
         $this->assertEquals(
@@ -109,7 +109,7 @@ class ConfigLocatorTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Locator\ConfigLocator::locate
+     * @covers \OckCyp\CoversValidator\Locator\ConfigLocator::locate
      */
     public function testReturnsNullWhenConfigFileDoesNotExist()
     {

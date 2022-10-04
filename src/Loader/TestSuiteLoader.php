@@ -9,9 +9,6 @@ class TestSuiteLoader
 {
     /**
      * Load test suite
-     *
-     * @param ConfigurationHolder $configurationHolder
-     * @return TestCollection
      */
     public static function loadSuite(ConfigurationHolder $configurationHolder): TestCollection
     {

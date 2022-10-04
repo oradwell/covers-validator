@@ -8,7 +8,7 @@ use OckCyp\CoversValidator\Tests\FileTestCase;
 class FileLoaderTest extends FileTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Loader\FileLoader::loadFile
+     * @covers \OckCyp\CoversValidator\Loader\FileLoader::loadFile
      */
     public function testLoadsFile()
     {
@@ -18,7 +18,7 @@ class FileLoaderTest extends FileTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Loader\FileLoader::loadFile
+     * @covers \OckCyp\CoversValidator\Loader\FileLoader::loadFile
      */
     public function testLoadsFile2()
     {

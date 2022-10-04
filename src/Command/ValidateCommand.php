@@ -51,7 +51,7 @@ class ValidateCommand extends Command
 
         $configurationHolder = InputHandler::handleInput($input);
         if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERY_VERBOSE) {
-            $output->writeln(PHP_EOL . sprintf(
+            $output->writeln(PHP_EOL.sprintf(
                 'Configuration file loaded: %s',
                 $configurationHolder->getFilename()
             ));
@@ -59,7 +59,8 @@ class ValidateCommand extends Command
 
         $testCollection = TestSuiteLoader::loadSuite($configurationHolder);
         if ($testCollection->isEmpty()) {
-            $output->writeln(PHP_EOL . 'No tests found to validate.');
+            $output->writeln(PHP_EOL.'No tests found to validate.');
+
             return 0;
         }
 
@@ -72,10 +73,10 @@ class ValidateCommand extends Command
 
             $testClass = get_class($suite);
             $testMethod = $suite->getName(false);
-            $testSignature = $testClass . '::' . $suite->getName();
+            $testSignature = $testClass.'::'.$suite->getName();
 
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_DEBUG) {
-                $this->writeValidity($output, 'Validating ' . $testSignature . '...');
+                $this->writeValidity($output, 'Validating '.$testSignature.'...');
             }
 
             $isValid = Validator::isValidMethod(
@@ -84,7 +85,7 @@ class ValidateCommand extends Command
             );
 
             if (!$isValid) {
-                $failedCount++;
+                ++$failedCount;
                 $this->writeValidity($output, $testSignature, false);
             } elseif ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
                 $this->writeValidity($output, $testSignature, true);
@@ -115,7 +116,8 @@ class ValidateCommand extends Command
      * @param string $message
      * @param bool|null $isValid
      */
-    protected function writeValidity($output, $message, $isValid = null) {
+    protected function writeValidity($output, $message, $isValid = null)
+    {
         if ($this->firstValidityWrite) {
             $output->writeln('');
             $this->firstValidityWrite = false;

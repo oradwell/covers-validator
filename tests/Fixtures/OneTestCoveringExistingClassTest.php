@@ -7,10 +7,9 @@ use PHPUnit\Framework\TestCase;
 class OneTestCoveringExistingClassTest extends TestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Tests\Fixtures\ExistingClass::existingMethod
+     * @covers \OckCyp\CoversValidator\Tests\Fixtures\ExistingClass::existingMethod
      */
     public function testDummyTest()
     {
-
     }
 }

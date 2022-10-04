@@ -21,6 +21,7 @@ class TestCollection implements \Iterator
         $configuration = $configurationHolder->getConfiguration();
 
         if ($configuration instanceof PHPUnit8Configuration) {
+            // @codeCoverageIgnoreStart
             $this->iterator = $configuration->getTestSuiteConfiguration();
         } else {
             if (class_exists('PHPUnit\TextUI\Configuration\TestSuiteMapper', true)) {
@@ -29,11 +30,12 @@ class TestCollection implements \Iterator
             } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper', true)) {
                 // PHPUnit >= 9.3 & < 9.5
                 $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper();
+            // @codeCoverageIgnoreEnd
             } elseif (class_exists('PHPUnit\TextUI\TestSuiteMapper', true)) {
                 // PHPUnit >= 9.5
                 $testSuiteMapper = new \PHPUnit\TextUI\TestSuiteMapper();
             } else {
-                throw new \RuntimeException('Could not find PHPUnit TestSuiteMapper class');
+                throw new \RuntimeException('Could not find PHPUnit TestSuiteMapper class'); // @codeCoverageIgnore
             }
 
             $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
@@ -54,14 +56,12 @@ class TestCollection implements \Iterator
         return $this->iteratorIterator->key();
     }
 
-    #[\ReturnTypeWillChange]
-    public function next()
+    public function next(): void
     {
         $this->iteratorIterator->next();
     }
 
-    #[\ReturnTypeWillChange]
-    public function rewind()
+    public function rewind(): void
     {
         $this->iteratorIterator->rewind();
     }

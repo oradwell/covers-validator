@@ -8,7 +8,7 @@ use OckCyp\CoversValidator\Validator\Validator;
 class ValidatorTest extends BaseTestCase
 {
     /**
-     * @covers OckCyp\CoversValidator\Validator\Validator::isValidMethod
+     * @covers \OckCyp\CoversValidator\Validator\Validator::isValidMethod
      */
     public function testReturnsFalseForNonExistentClassBeingCovered()
     {
@@ -21,7 +21,7 @@ class ValidatorTest extends BaseTestCase
     }
 
     /**
-     * @covers OckCyp\CoversValidator\Validator\Validator::isValidMethod
+     * @covers \OckCyp\CoversValidator\Validator\Validator::isValidMethod
      */
     public function testReturnsTrueForExistingClassBeingCovered()
     {

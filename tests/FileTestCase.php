@@ -29,7 +29,7 @@ abstract class FileTestCase extends BaseFileTestCase
         // Save the original directory
         $this->runDir = getcwd();
 
-        $this->tmpDir = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'covers-validator';
+        $this->tmpDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'covers-validator';
         // Create a temp directory
         mkdir($this->tmpDir);
         // Change to the temp directory
@@ -59,7 +59,7 @@ abstract class FileTestCase extends BaseFileTestCase
                 continue;
             }
 
-            $path = $directory . DIRECTORY_SEPARATOR . $filename;
+            $path = $directory.DIRECTORY_SEPARATOR.$filename;
             if (is_dir($path)) {
                 self::recursiveRmDir($path);
                 continue;

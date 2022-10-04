@@ -7,10 +7,9 @@ use PHPUnit\Framework\TestCase;
 class TwoTestCoveringNonExistentClassTest extends TestCase
 {
     /**
-     * @covers NonExistentClass
+     * @covers \NonExistentClass
      */
     public function testDummyTest()
     {
-
     }
 }

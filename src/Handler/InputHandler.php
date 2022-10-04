@@ -13,7 +13,6 @@ class InputHandler
     /**
      * Handle console input
      *
-     * @param InputInterface $input
      * @return ConfigurationHolder
      */
     public static function handleInput(InputInterface $input)

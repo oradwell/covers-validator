@@ -9,9 +9,6 @@ class ConfigLoader
 {
     /**
      * Load configuration from file
-     *
-     * @param string $fileName
-     * @return ConfigurationHolder
      */
     public static function loadConfig(string $fileName): ConfigurationHolder
     {
@@ -24,16 +21,16 @@ class ConfigLoader
             if (isset($phpunit['bootstrap'])) {
                 $bootstrap = $phpunit['bootstrap'];
             }
-            // @codeCoverageIgnoreEnd
         } else {
             if (class_exists('PHPUnit\TextUI\Configuration\Loader', true)) {
                 // PHPUnit < 9.3
                 $loader = new \PHPUnit\TextUI\Configuration\Loader();
+            // @codeCoverageIgnoreEnd
             } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\Loader', true)) {
                 // PHPUnit >= 9.3
                 $loader = new \PHPUnit\TextUI\XmlConfiguration\Loader();
             } else {
-                throw new \RuntimeException('Could not find PHPUnit configuration loader class');
+                throw new \RuntimeException('Could not find PHPUnit configuration loader class'); // @codeCoverageIgnore
             }
 
             $configuration = $loader->load($fileName);

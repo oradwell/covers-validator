@@ -2,8 +2,8 @@
 
 namespace OckCyp\CoversValidator\Model;
 
-use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 use PHPUnit\TextUI\Configuration\Configuration;
+use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 
 class ConfigurationHolder
 {
@@ -24,7 +24,6 @@ class ConfigurationHolder
 
     /**
      * @param PHPUnit8Configuration|Configuration $configuration
-     * @param string $filename
      * @param string|null $bootstrap
      */
     public function __construct($configuration, string $filename, $bootstrap)

@@ -2,16 +2,51 @@
 
 namespace OckCyp\CoversValidator\Application;
 
-use Composer\InstalledVersions;
-use function class_alias;
-use function version_compare;
+use OckCyp\CoversValidator\Command\ValidateCommand;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputDefinition;
+use Symfony\Component\Console\Input\InputInterface;
 
-$isSymfony6 = version_compare(
-    InstalledVersions::getVersion('symfony/console'),
-    '6.0.0'
-) >= 0;
+class CoversValidator extends Application
+{
+    public const NAME = 'CoversValidator';
+    public const VERSION = '1.5.0';
 
-class_alias(
-    $isSymfony6 ? CoversValidatorSymfony6::class : CoversValidatorSymfony5::class,
-    'OckCyp\CoversValidator\Application\CoversValidator'
-);
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct($name = self::NAME, $version = self::VERSION)
+    {
+        parent::__construct($name, $version);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getCommandName(InputInterface $input): ?string
+    {
+        return 'validate';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getDefaultCommands(): array
+    {
+        $defaultCommands = parent::getDefaultCommands();
+        $defaultCommands[] = new ValidateCommand();
+
+        return $defaultCommands;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDefinition(): InputDefinition
+    {
+        $inputDefinition = parent::getDefinition();
+        $inputDefinition->setArguments();
+
+        return $inputDefinition;
+    }
+}
