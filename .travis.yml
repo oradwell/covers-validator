@@ -8,26 +8,26 @@ php:
   - 8.1.0
 
 env:
-  - COVERAGE=0 INSTALL_PROPHECY=1 CSCHECK=0
+  - COVERAGE=0 INSTALL_PROPHECY=1 CS_CHECK=0
 
 matrix:
   include:
     - php: 7.4
       env: COVERAGE=1 INSTALL_PROPHECY=1
     - php: 7.4
-      env: CSCHECK=1 INSTALL_PROPHECY=1
+      env: CS_CHECK=1 INSTALL_PROPHECY=1
     - php: 7.1
       env: INSTALL_PROPHECY=0
 
 before_script:
   - if [[ "$COVERAGE" -eq 0 ]]; then composer install; else composer require php-coveralls/php-coveralls --dev; fi
   - if [[ "$INSTALL_PROPHECY" -eq 1 ]]; then composer require phpspec/prophecy --dev; fi
-  - if [[ "$CSCHECK" -eq 1 ]]; then wget -q https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v3.11.0/php-cs-fixer.phar; fi
+  - if [[ "$CS_CHECK" -eq 1 ]]; then wget -q https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v3.11.0/php-cs-fixer.phar; fi
 
 script:
   - if [[ "$COVERAGE" -gt 0 ]]; then mkdir -p build/logs; vendor/bin/phpunit --coverage-clover=build/logs/clover.xml; fi
-  - if [ "$COVERAGE" -eq 0 ] -a [ $CSCHECK -eq 0 ]; then vendor/bin/phpunit; fi
-  - if [[ "$CSCHECK" -eq 1 ]]; then php php-cs-fixer.phar fix --dry-run --verbose --diff; fi
+  - if [ "$COVERAGE" -eq 0 ] -a [ $CS_CHECK -eq 0 ]; then vendor/bin/phpunit; fi
+  - if [[ "$CS_CHECK" -eq 1 ]]; then php php-cs-fixer.phar fix --dry-run --verbose --diff; fi
 
 after_script:
   - if [[ "$COVERAGE" -gt 0 ]]; then vendor/bin/php-coveralls; fi
