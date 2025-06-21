@@ -2,6 +2,7 @@
 
 namespace OckCyp\CoversValidator\Model;
 
+use PHPUnit\Runner\Version;
 use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 
 class TestCollection implements \Iterator
@@ -20,25 +21,41 @@ class TestCollection implements \Iterator
     {
         $configuration = $configurationHolder->getConfiguration();
 
-        if ($configuration instanceof PHPUnit8Configuration) {
-            // @codeCoverageIgnoreStart
-            $this->iterator = $configuration->getTestSuiteConfiguration();
-        } else {
-            if (class_exists('PHPUnit\TextUI\Configuration\TestSuiteMapper', true)) {
+        // @codeCoverageIgnoreStart
+        if ((int) Version::series() < 10) {
+            if ($configuration instanceof PHPUnit8Configuration) {
+                $this->iterator = $configuration->getTestSuiteConfiguration();
+            } elseif (class_exists('PHPUnit\TextUI\Configuration\TestSuiteMapper')) {
                 // PHPUnit < 9.3
                 $testSuiteMapper = new \PHPUnit\TextUI\Configuration\TestSuiteMapper();
-            } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper', true)) {
-                // PHPUnit >= 9.3 & < 9.5
+                $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
+            } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper')) {
+                // PHPUnit 9.3, 9.4
                 $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper();
-            // @codeCoverageIgnoreEnd
-            } elseif (class_exists('PHPUnit\TextUI\TestSuiteMapper', true)) {
-                // PHPUnit >= 9.5
+                $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
+            } elseif (class_exists('PHPUnit\TextUI\TestSuiteMapper')) {
+                // PHPUnit 9.5, 9.6
                 $testSuiteMapper = new \PHPUnit\TextUI\TestSuiteMapper();
-            } else {
-                throw new \RuntimeException('Could not find PHPUnit TestSuiteMapper class'); // @codeCoverageIgnore
+                $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
             }
+        // @codeCoverageIgnoreEnd
+        } else {
+            // PHPUnit >= 10.0: same name as PHPUnit 9.3, but map() takes different args.
+            if (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper')) {
+                $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper();
 
-            $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
+                // TestSuiteMapper eventually calls TestBuilder->configureTestCase,
+                // which requires the ConfigurationRegistry singleton to be populated.
+                \PHPUnit\TextUI\Configuration\Registry::init(
+                    (new \PHPUnit\TextUI\CliArguments\Builder())->fromParameters([]),
+                    $configuration
+                );
+                $this->iterator = $testSuiteMapper->map($configurationHolder->getFilename(), $configuration->testSuite(), '', '');
+            }
+        }
+
+        if (!$this->iterator) {
+            throw new \RuntimeException('Could not find PHPUnit TestSuiteMapper class'); // @codeCoverageIgnore
         }
 
         $this->iteratorIterator = new \RecursiveIteratorIterator($this->iterator);

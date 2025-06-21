@@ -3,7 +3,10 @@
 namespace OckCyp\CoversValidator\Loader;
 
 use OckCyp\CoversValidator\Model\ConfigurationHolder;
-use PHPUnit\Util\Configuration;
+use PHPUnit\Runner\Version;
+use PHPUnit\TextUI\Configuration\Loader as PHPUnit9ConfigurationLoader;
+use PHPUnit\TextUI\XmlConfiguration\Loader as PHPUnit10ConfigurationLoader;
+use PHPUnit\Util\Configuration as PHPUnit8Configuration;
 
 class ConfigLoader
 {
@@ -12,9 +15,10 @@ class ConfigLoader
      */
     public static function loadConfig(string $fileName): ConfigurationHolder
     {
-        if (class_exists(Configuration::class)) {
+        if ((int) Version::series() <= 8 && class_exists(PHPUnit8Configuration::class)) {
             // @codeCoverageIgnoreStart
-            $configuration = Configuration::getInstance($fileName);
+            // PHPUnit 8.x
+            $configuration = PHPUnit8Configuration::getInstance($fileName);
             $filename = $configuration->getFilename();
             $phpunit = $configuration->getPHPUnitConfiguration();
             $bootstrap = '';
@@ -22,13 +26,13 @@ class ConfigLoader
                 $bootstrap = $phpunit['bootstrap'];
             }
         } else {
-            if (class_exists('PHPUnit\TextUI\Configuration\Loader', true)) {
+            if (class_exists(PHPUnit9ConfigurationLoader::class)) {
                 // PHPUnit < 9.3
-                $loader = new \PHPUnit\TextUI\Configuration\Loader();
+                $loader = new PHPUnit9ConfigurationLoader();
             // @codeCoverageIgnoreEnd
-            } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\Loader', true)) {
+            } elseif (class_exists(PHPUnit10ConfigurationLoader::class)) {
                 // PHPUnit >= 9.3
-                $loader = new \PHPUnit\TextUI\XmlConfiguration\Loader();
+                $loader = new PHPUnit10ConfigurationLoader();
             } else {
                 throw new \RuntimeException('Could not find PHPUnit configuration loader class'); // @codeCoverageIgnore
             }

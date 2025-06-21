@@ -18,7 +18,14 @@ class Validator
     public static function isValidMethod($class, $method)
     {
         try {
-            Test::getLinesToBeCovered($class, $method);
+            if (class_exists('PHPUnit\Metadata\Api\CodeCoverage', true)) {
+                // PHPUnit 10+
+                (new \PHPUnit\Metadata\Api\CodeCoverage())
+                    ->linesToBeCovered($class, $method);
+            } else {
+                // PHPUnit < 10
+                Test::getLinesToBeCovered($class, $method);
+            }
         } catch (CodeCoverageException $e) {
             return false;
         }
