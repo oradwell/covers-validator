@@ -1,0 +1,77 @@
+name: CI
+
+on: push
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+      - name: Download PHP-CS-Fixer
+        run: wget -q https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v3.11.0/php-cs-fixer.phar
+      - name: CS Check
+        run: php php-cs-fixer.phar fix --dry-run --verbose --diff
+
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+
+    strategy:
+      matrix:
+        php:
+          - 7.2
+          - 7.3
+          - 7.4
+          - 8.0
+          - 8.1
+        include:
+          - php: 7.1
+            no-prophecy: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - name: Require prophecy
+        if: ${{ ! matrix.no-prophecy }}
+        run: composer require phpspec/prophecy --dev --no-install
+      - name: Install dependencies
+        run: composer install
+      - name: Run tests
+        run: vendor/bin/phpunit
+
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+      - name: Require prophecy and php-coveralls
+        run: composer require phpspec/prophecy php-coveralls/php-coveralls --dev --no-install
+      - name: Install dependencies
+        run: composer install
+      - name: Create build/logs
+        run: mkdir -p build/logs
+      - name: Run tests
+        run: vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
+      - name: Upload coverage
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: vendor/bin/php-coveralls
