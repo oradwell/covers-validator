@@ -3,6 +3,7 @@
 namespace OckCyp\CoversValidator\Tests\Fixtures;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 class OneTestCoveringNonExistentClassTest extends TestCase
 {
@@ -11,5 +12,6 @@ class OneTestCoveringNonExistentClassTest extends TestCase
      */
     public function testDummyTest()
     {
+        $this->assertTrue(true);
     }
 }

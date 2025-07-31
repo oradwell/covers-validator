@@ -28,17 +28,14 @@ class TestCollection implements \Iterator
                 // PHPUnit < 9.3
                 $testSuiteMapper = new \PHPUnit\TextUI\Configuration\TestSuiteMapper();
             } elseif (class_exists('PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper', true)) {
-                // PHPUnit >= 9.3 & < 9.5
+                // PHPUnit >= 9.3
                 $testSuiteMapper = new \PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper();
             // @codeCoverageIgnoreEnd
-            } elseif (class_exists('PHPUnit\TextUI\TestSuiteMapper', true)) {
-                // PHPUnit >= 9.5
-                $testSuiteMapper = new \PHPUnit\TextUI\TestSuiteMapper();
             } else {
                 throw new \RuntimeException('Could not find PHPUnit TestSuiteMapper class'); // @codeCoverageIgnore
             }
 
-            $this->iterator = $testSuiteMapper->map($configuration->testSuite(), '');
+            $this->iterator = $testSuiteMapper->map($configurationHolder->getFilename(), $configuration->testSuite(), '', '');
         }
 
         $this->iteratorIterator = new \RecursiveIteratorIterator($this->iterator);

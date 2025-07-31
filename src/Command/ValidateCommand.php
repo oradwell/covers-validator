@@ -72,8 +72,14 @@ class ValidateCommand extends Command
             }
 
             $testClass = get_class($suite);
-            $testMethod = $suite->getName(false);
-            $testSignature = $testClass.'::'.$suite->getName();
+            if (method_exists($suite, 'getName')) {
+                $testMethod = $suite->getName(false);
+            } elseif (method_exists($suite, 'name')) {
+                $testMethod = $suite->name();
+            } else {
+                $testMethod = $suite->toString();
+            }
+            $testSignature = $testClass.'::'.$testMethod;
 
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_DEBUG) {
                 $this->writeValidity($output, 'Validating '.$testSignature.'...');

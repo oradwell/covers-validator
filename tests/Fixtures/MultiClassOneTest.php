@@ -8,5 +8,6 @@ class MultiClassOneTest extends TestCase
 {
     public function testDoesSomething()
     {
+        $this->assertTrue(true);
     }
 }

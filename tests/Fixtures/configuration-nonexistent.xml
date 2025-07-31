@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<phpunit>
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd"
+        colors="true"
+        beStrictAboutOutputDuringTests="true"
+        cacheDirectory=".phpunit.cache"
+        requireCoverageMetadata="true"
+        beStrictAboutCoverageMetadata="true">
+  <source>
+  <include>
+      <file>./OneTestCoveringNonExistentClassTest.php</file>
+      </include>
+      </source>
   <testsuites>
     <testsuite name="My Test Suite">
       <file>./OneTestCoveringNonExistentClassTest.php</file>

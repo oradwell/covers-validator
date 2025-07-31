@@ -11,6 +11,11 @@ class FileLoader
      */
     public static function loadFile($filename)
     {
-        \PHPUnit\Util\FileLoader::checkAndLoad($filename);
+        if (class_exists(\PHPUnit\Util\FileLoader::class, true)) {
+            \PHPUnit\Util\FileLoader::checkAndLoad($filename);
+            return;
+        }
+
+        include_once $filename;
     }
 }

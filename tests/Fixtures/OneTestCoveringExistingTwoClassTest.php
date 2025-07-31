@@ -11,5 +11,6 @@ class OneTestCoveringExistingTwoClassTest extends TestCase
      */
     public function testDummyTest()
     {
+        $this->assertTrue(true);
     }
 }
