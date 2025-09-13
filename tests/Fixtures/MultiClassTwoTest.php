@@ -6,4 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class MultiClassTwoTest extends TestCase
 {
+    public function testDoesSomething()
+    {
+        $this->assertTrue(true);
+    }
 }

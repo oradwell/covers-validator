@@ -13,6 +13,7 @@ class FileLoader
     {
         if (class_exists(\PHPUnit\Util\FileLoader::class, true)) {
             \PHPUnit\Util\FileLoader::checkAndLoad($filename);
+
             return;
         }
 

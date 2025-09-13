@@ -34,6 +34,8 @@ jobs:
           - 7.4
           - 8.0
           - 8.1
+          - 8.2
+          - 8.3
         include:
           - php: 7.1
             no-prophecy: "1"
@@ -70,8 +72,9 @@ jobs:
       - name: Create build/logs
         run: mkdir -p build/logs
       - name: Run tests
-        run: vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
+        run: vendor/bin/phpunit -c phpunit10.xml.dist --coverage-clover=build/logs/clover.xml
       - name: Upload coverage
+        if: ${{ github.repository == 'oradwell/covers-validator' }} # skip on forks, needs secret
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         run: vendor/bin/php-coveralls

@@ -5,6 +5,7 @@ namespace OckCyp\CoversValidator\Tests\Handler;
 use OckCyp\CoversValidator\Handler\InputHandler;
 use OckCyp\CoversValidator\Model\ConfigurationHolder;
 use OckCyp\CoversValidator\Tests\BaseTestCase;
+use Prophecy\Prophet;
 
 /**
  * @coversDefaultClass \OckCyp\CoversValidator\Handler\InputHandler
@@ -12,11 +13,32 @@ use OckCyp\CoversValidator\Tests\BaseTestCase;
 class InputHandlerTest extends BaseTestCase
 {
     /**
+     * @var Prophet|null
+     */
+    private $prophet;
+
+    /**
+     * @before
+     */
+    protected function setUpProphet()
+    {
+        $this->prophet = new Prophet();
+    }
+
+    /**
+     * @after
+     */
+    protected function tearDownProphet()
+    {
+        $this->prophet->checkPredictions();
+    }
+
+    /**
      * @covers ::handleInput
      */
     public function testHandlesInputWithNoBootstrap()
     {
-        $input = $this->prophesize(
+        $input = $this->prophet->prophesize(
             'Symfony\Component\Console\Input\InputInterface'
         );
         $input->getOption('configuration')
@@ -36,7 +58,7 @@ class InputHandlerTest extends BaseTestCase
      */
     public function testHandlesInputWithBootstrapInConfig()
     {
-        $input = $this->prophesize(
+        $input = $this->prophet->prophesize(
             'Symfony\Component\Console\Input\InputInterface'
         );
         $input->getOption('configuration')
@@ -68,7 +90,7 @@ class InputHandlerTest extends BaseTestCase
      */
     public function testBootstrapInInputOverridesConfig()
     {
-        $input = $this->prophesize(
+        $input = $this->prophet->prophesize(
             'Symfony\Component\Console\Input\InputInterface'
         );
         $input->getOption('configuration')

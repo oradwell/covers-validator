@@ -16,7 +16,7 @@ class OneTestWithProviderCoveringNonExistentClassTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function provideDummyTest()
+    public static function provideDummyTest()
     {
         return [
             ['x'],

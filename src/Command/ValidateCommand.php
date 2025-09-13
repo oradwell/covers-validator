@@ -73,8 +73,10 @@ class ValidateCommand extends Command
 
             $testClass = get_class($suite);
             if (method_exists($suite, 'getName')) {
+                // PHPUnit < 10
                 $testMethod = $suite->getName(false);
             } elseif (method_exists($suite, 'name')) {
+                // PHPUnit >= 10.0
                 $testMethod = $suite->name();
             } else {
                 $testMethod = $suite->toString();
