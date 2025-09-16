@@ -23,10 +23,132 @@ use Symfony\Component\Console\Tester\CommandTester;
  */
 class ValidateCommandTest extends BaseTestCase
 {
-    public function testPrintsConfigFileUsed()
+    public static function provideIntegration()
     {
-        $configFile = 'tests/Fixtures/configuration-empty.xml';
+        return [
+            'PrintsConfigFileUsed' => [
+                'tests/Fixtures/configuration-empty.xml',
+                OutputInterface::VERBOSITY_VERY_VERBOSE,
+                0,
+                ['Configuration file loaded: {configFile}'],
+            ],
+            'ReturnsSuccessForEmptyTestSuite' => [
+                'tests/Fixtures/configuration-empty.xml',
+                OutputInterface::VERBOSITY_NORMAL,
+                0,
+                ['No tests found to validate.'],
+            ],
+            'ReturnsFailForNonExistentClasses' => [
+                'tests/Fixtures/configuration-nonexistent.xml',
+                OutputInterface::VERBOSITY_NORMAL,
+                1,
+                [
+                    'Invalid - ',
+                    'CoversValidator {VERSION}',
+                    'There were 1 test(s) with invalid @covers tags.',
+                ],
+            ],
+            'ReturnsFailForEmptyCoversTag' => [
+                'tests/Fixtures/configuration-emptycovers.xml',
+                OutputInterface::VERBOSITY_NORMAL,
+                1,
+                [
+                    'Invalid - ',
+                    'There were 1 test(s) with invalid @covers tags.',
+                ],
+            ],
+            'ReturnsFailForInvalidCoversTagWithProvider' => [
+                'tests/Fixtures/configuration-nonexistentprovider.xml',
+                OutputInterface::VERBOSITY_NORMAL,
+                1,
+                [
+                    'Invalid - ',
+                    'There were 1 test(s) with invalid @covers tags.',
+                ],
+            ],
+            'ReturnsSuccessForExistingClasses' => [
+                'tests/Fixtures/configuration-existing.xml',
+                OutputInterface::VERBOSITY_DEBUG,
+                0,
+                [
+                    'Valid - ',
+                    'Validating ',
+                ],
+            ],
+            'ReturnsSuccessForValidCoversTagWithProvider' => [
+                'tests/Fixtures/configuration-existingprovider.xml',
+                OutputInterface::VERBOSITY_NORMAL,
+                0,
+                [
+                    'Validation complete. All @covers tags are valid.',
+                ],
+            ],
+            'ReturnsFailForComboClasses' => [
+                'tests/Fixtures/configuration-all.xml',
+                OutputInterface::VERBOSITY_NORMAL,
+                1,
+                [
+                    'Invalid - ',
+                    'There were 1 test(s) with invalid @covers tags.',
+                ],
+            ],
+            'SkipsEmptyTestClasses' => [
+                'tests/Fixtures/configuration-multi-testsuite.xml',
+                OutputInterface::VERBOSITY_DEBUG,
+                0,
+                [
+                    'Validation complete. All @covers tags are valid.',
+                ],
+            ],
+        ];
+    }
 
+    /**
+     * @dataProvider provideIntegration
+     */
+    public function testBin($configFile, $verbosity, int $expectExitCode, array $expectOutput)
+    {
+        $projectDir = dirname(dirname(dirname(__FILE__)));
+        $pipes = null;
+        $verbosityArg = [
+            OutputInterface::VERBOSITY_VERY_VERBOSE => '-vv',
+            OutputInterface::VERBOSITY_DEBUG => '-vvv',
+        ][$verbosity] ?? '';
+        $proc = proc_open(
+            "./covers-validator {$verbosityArg} -c ".escapeshellarg($configFile),
+            [
+                ['pipe', 'r'],
+                ['pipe', 'w'],
+                ['pipe', 'w'],
+            ],
+            $pipes,
+            $projectDir
+        );
+        $this->assertNotNull($proc);
+
+        fclose($pipes[0]);
+        $stdout = stream_get_contents($pipes[1]);
+        $stderr = stream_get_contents($pipes[2]);
+        fclose($pipes[1]);
+        fclose($pipes[2]);
+        $exitCode = proc_close($proc);
+
+        $this->assertEquals('', $stderr, 'stderr');
+        $this->assertSame($expectExitCode, $exitCode, 'exit code');
+        foreach ($expectOutput as $expectLine) {
+            $expectLine = strtr($expectLine, [
+                '{configFile}' => realpath($configFile),
+                '{VERSION}' => CoversValidator::VERSION,
+            ]);
+            $this->assertStringContainsString($expectLine, $stdout, 'stdout');
+        }
+    }
+
+    /**
+     * @dataProvider provideIntegration
+     */
+    public function testExecute($configFile, $verbosity, int $expectExitCode, array $expectOutput)
+    {
         $app = new CoversValidator();
         /** @var ValidateCommand $command */
         $command = $app->find('validate');
@@ -36,153 +158,19 @@ class ValidateCommandTest extends BaseTestCase
                 '-c' => $configFile,
             ],
             [
-                'verbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE,
+                'verbosity' => $verbosity,
             ]
         );
+        $stdout = $commandTester->getDisplay();
 
-        $this->assertEquals(0, $exitCode);
-        $this->assertRegex(
-            sprintf(
-                '{Configuration file loaded: %s}',
-                preg_quote(realpath($configFile))
-            ),
-            $commandTester->getDisplay()
-        );
-    }
-
-    public function testReturnsSuccessForEmptyTestSuite()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-empty.xml',
-        ]);
-
-        $this->assertEquals(0, $exitCode);
-        $this->assertRegex('/No tests found to validate./', $commandTester->getDisplay());
-    }
-
-    public function testReturnsFailForNonExistentClasses()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-nonexistent.xml',
-        ]);
-
-        $this->assertGreaterThan(0, $exitCode);
-        $display = $commandTester->getDisplay();
-        $this->assertRegex('/Invalid - /', $display);
-        $this->assertRegex('/'.preg_quote(CoversValidator::NAME, '/').' (?:version )?'.preg_quote(CoversValidator::VERSION, '/').'/', $display);
-        $this->assertRegex('/There were 1 test\(s\) with invalid @covers tags./', $display);
-    }
-
-    public function testReturnsFailForEmptyCoversTag()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-emptycovers.xml',
-        ]);
-
-        $this->assertGreaterThan(0, $exitCode);
-        $display = $commandTester->getDisplay();
-        $this->assertRegex('/Invalid - /', $display);
-        $this->assertRegex('/There were 1 test\(s\) with invalid @covers tags./', $display);
-    }
-
-    public function testReturnsFailForInvalidCoversTagWithProvider()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-nonexistentprovider.xml',
-        ]);
-
-        $this->assertGreaterThan(0, $exitCode);
-        $display = $commandTester->getDisplay();
-        $this->assertRegex('/Invalid - /', $display);
-        $this->assertRegex('/There were 1 test\(s\) with invalid @covers tags./', $display);
-    }
-
-    public function testReturnsSuccessForExistingClasses()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(
-            [
-                '-c' => 'tests/Fixtures/configuration-existing.xml',
-            ],
-            [
-                'verbosity' => OutputInterface::VERBOSITY_DEBUG,
-            ]
-        );
-
-        $this->assertEquals(0, $exitCode);
-        $display = $commandTester->getDisplay();
-        $this->assertRegex('/Valid - /', $display);
-        $this->assertRegex('/Validating /', $display);
-    }
-
-    public function testReturnsSuccessForValidCoversTagWithProvider()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-existingprovider.xml',
-        ]);
-
-        $this->assertSame(0, $exitCode);
-        $display = $commandTester->getDisplay();
-        $this->assertRegex('/Validation complete. All @covers tags are valid./', $display);
-    }
-
-    public function testReturnsFailForComboClasses()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute([
-            '-c' => 'tests/Fixtures/configuration-all.xml',
-        ]);
-
-        $this->assertGreaterThan(0, $exitCode);
-        $display = $commandTester->getDisplay();
-        $this->assertRegex('/Invalid - /', $display);
-        $this->assertRegex('/There were 1 test\(s\) with invalid @covers tags./', $display);
-    }
-
-    public function testSkipsEmptyTestClasses()
-    {
-        $app = new CoversValidator();
-        /** @var ValidateCommand $command */
-        $command = $app->find('validate');
-        $commandTester = new CommandTester($command);
-        $exitCode = $commandTester->execute(
-            [
-                '-c' => 'tests/Fixtures/configuration-multi-testsuite.xml',
-            ],
-            [
-                'verbosity' => OutputInterface::VERBOSITY_DEBUG,
-            ]
-        );
-
-        $this->assertEquals(0, $exitCode);
-        $display = $commandTester->getDisplay();
-        $this->assertRegex('/Validation complete\. All @covers tags are valid\./', $display);
+        $this->assertSame($expectExitCode, $exitCode, 'exit code');
+        foreach ($expectOutput as $expectLine) {
+            $expectLine = strtr($expectLine, [
+                '{configFile}' => realpath($configFile),
+                '{VERSION}' => CoversValidator::VERSION,
+            ]);
+            $this->assertStringContainsString($expectLine, $stdout, 'stdout');
+        }
     }
 
     public function testApplicationHasDefaultCommand()
