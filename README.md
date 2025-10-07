@@ -11,7 +11,7 @@ PHPUnit @covers tags validator
 ## Why?
 
 [PHPUnit](https://github.com/sebastianbergmann/phpunit) fails to generate a coverage report
-when tests have invalid [@covers](https://docs.phpunit.de/en/9.6/annotations.html#covers)
+when tests have invalid [@covers](https://docs.phpunit.de/en/10.5/annotations.html#covers)
 tags.
 
 This tool allows you to determine the tests that have invalid @covers tags
@@ -36,7 +36,7 @@ Abandoned alternative: [dunkelfrosch/phpcoverfish](https://github.com/dunkelfros
 ### Prerequisites
 
 - PHP 7.1+
-- PHPUnit 6.0+
+- PHPUnit 7.0+
 
 ### Installation
 
@@ -69,13 +69,15 @@ php covers-validator.phar
 
 #### Older versions
 
-Latest version of covers-validator supports PHP 7.1+ and PHPUnit 7+.
-Please use version 0.5 for older PHP and PHPUnit versions.
+Latest release of covers-validator supports PHP 7.1+ and PHPUnit 7+.
+Please use a previous release with older PHP and PHPUnit versions.
 
-| PHPUnit version | Covers-validator version |
+| PHPUnit version | Covers-validator release |
 | --------------- | ------------------------ |
 | < 6.0           | 0.5.x                    |
-| >= 6.0          | 1.x                      |
+| 6.0 - 9.x       | 1.5                      |
+| 7.0 - 9.x       | 1.6                      |
+| 7.0 - 10.x      | >= 1.7.0                 |
 
 ### Usage
 
