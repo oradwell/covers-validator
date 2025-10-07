@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v1.7.0 - 2025-10-07
+
+- Support for PHP 8.3 and PHPUnit 10 ([#50](https://github.com/oradwell/covers-validator/pull/50))
+- Update docs for supported PHP and PHPUnit versions ([#49](https://github.com/oradwell/covers-validator/pull/49))
+
 ## v1.6.0 - 2022-10-04
 
 - Drop support for PHP 7.0 and PHPUnit 6 [#43](https://github.com/oradwell/covers-validator/pull/43)
